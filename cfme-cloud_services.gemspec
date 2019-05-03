@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Cfme::CloudServices::VERSION
   spec.authors       = ["ManageIQ Authors"]
 
-  spec.summary       = "CloudServices plugin for ManageIQ"
-  spec.description   = "CloudServices plugin for ManageIQ"
+  spec.summary       = "Red Hat Cloud Services plugin for ManageIQ"
+  spec.description   = "Red Hat Cloud Services plugin for ManageIQ"
   spec.homepage      = "https://github.com/ManageIQ/cfme-cloud_services"
   spec.license       = "Apache-2.0"
 
