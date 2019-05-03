@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Cfme::CloudServices::VERSION
   spec.authors       = ["ManageIQ Authors"]
 
-  spec.summary       = "Red Hat Cloud Services plugin for ManageIQ"
-  spec.description   = "Red Hat Cloud Services plugin for ManageIQ"
-  spec.homepage      = "https://github.com/ManageIQ/cfme-cloud_services"
+  spec.summary       = "Red Hat Cloud Services plugin for CloudForms"
+  spec.description   = "Red Hat Cloud Services plugin for CloudForms"
+  spec.homepage      = "https://github.com/RedHatCloudForms/cfme-cloud_services"
   spec.license       = "Apache-2.0"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
