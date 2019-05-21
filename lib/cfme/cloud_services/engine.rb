@@ -5,7 +5,7 @@ module Cfme
 
       config.autoload_paths << root.join('lib').to_s
 
-      def vmdb_plugin?
+      def self.vmdb_plugin?
         true
       end
 
