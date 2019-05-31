@@ -30,6 +30,7 @@ class Cfme::CloudServices::DataCollector
     common = {
       "id"            => nil,
       "api_version"   => nil,
+      "guid"          => nil,
       "name"          => nil,
       "type"          => nil,
       "vms"           => ["id", "ems_ref", "name", "type"],
