@@ -1,14 +1,14 @@
 require "json"
 
 class Cfme::CloudServices::DataCollector
-  def self.collect(provider)
-    new(provider).collect
+  def self.collect(target)
+    new(target).collect
   end
 
-  attr_reader :provider
+  attr_reader :target
 
-  def initialize(provider)
-    @provider = provider
+  def initialize(target)
+    @target = target
   end
 
   def collect
@@ -25,10 +25,8 @@ class Cfme::CloudServices::DataCollector
     # TODO: Download the manifest from the cloud for this CF version...for now just hardcode
     #
     # TODO: Modeling
-    #   - Should we allow collection of non-provider information, such as the
-    #     miq_servers, or even the CF version?
-    #   - Should we use the reporting format, and use the reporting engine
-    #     for collection?  This might allow deeper relationships.
+    #   - Should we allow collection of non-model information, such as replication,
+    #     pg_* tables or filesystem level things?
     common = {
       "id"            => nil,
       "api_version"   => nil,
@@ -41,22 +39,55 @@ class Cfme::CloudServices::DataCollector
 
     {
       "cfme_version" => cfme_version,
-      "manifest"     => {
-        "openstack" => common.clone,
-        "rhevm"     => common.clone,
-        "vmwarews"  => common.clone,
+      "manifest" => {
+        "core" => {
+          "Zone" => {
+            "name" => nil
+          }
+        },
+        "by_provider_type" => {
+          "ManageIQ::Providers::OpenStack::CloudManager" => common.clone,
+          "ManageIQ::Providers::Redhat::InfraManager" => common.clone,
+          "ManageIQ::Providers::Vmware::InfraManager" => common.clone,
+        }
       }
     }.to_json
   end
 
   def process(manifest)
-    provider_manifest = manifest.fetch_path("manifest", provider.emstype)
-    return {} if provider_manifest.blank?
+    case target
+    when "core"
+      process_core(manifest)
+    when ExtManagementSystem
+      process_by_provider_type(manifest)
+    else
+      raise "Unknown target: #{target.inspect}"
+    end
+  end
 
-    provider_manifest.each_with_object({}) do |(relation, attributes), payload|
-      content = provider.public_send(relation)
-      content = content.select(attributes).map { |o| o.attributes } if attributes
-      payload.store_path(relation, content)
+  def process_core(manifest)
+    core_manifest = manifest.fetch_path("manifest", "core")
+    return if core_manifest.blank?
+
+    core_manifest.each_with_object({}) do |(model, model_manifest), payload|
+      payload.store_path("core", model, model.constantize.all.map { |m| extract_data(m, model_manifest) })
+    end
+  end
+
+  def process_by_provider_type(manifest)
+    model_manifest = manifest.fetch_path("manifest", "by_provider_type", target.class.name)
+    return if model_manifest.blank?
+
+    {"by_provider_type" => {target.class.name => extract_data(target, model_manifest)}}
+  end
+
+  def extract_data(target, model_manifest)
+    return unless model_manifest
+
+    model_manifest.each_with_object({}) do |(relation_or_column, attributes), payload|
+      content = target.public_send(relation_or_column)
+      content = content.select(attributes).map(&:attributes) if attributes
+      payload.store_path(relation_or_column, content)
     end
   end
 
