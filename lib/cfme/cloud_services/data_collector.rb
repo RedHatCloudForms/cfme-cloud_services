@@ -32,9 +32,9 @@ class Cfme::CloudServices::DataCollector
       "api_version"   => nil,
       "name"          => nil,
       "type"          => nil,
-      "vms"           => ["id", "ems_ref", "name", "type"],
-      "miq_templates" => ["id", "ems_ref", "name", "type"],
-      "hosts"         => ["id", "ems_ref", "name", "type"]
+      "vms"           => ["id", "cpu_total_cores", "ems_ref", "name", "type", "ram_size"],
+      "miq_templates" => ["id", "cpu_total_cores", "ems_ref", "name", "type", "ram_size"],
+      "hosts"         => ["id", "cpu_total_cores", "ems_ref", "name", "type", "ram_size"]
     }
 
     {
