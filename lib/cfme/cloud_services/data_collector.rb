@@ -35,7 +35,9 @@ class Cfme::CloudServices::DataCollector
       "type"          => nil,
       "vms"           => ["id", "cpu_total_cores", "ems_ref", "name", "type", "ram_size"],
       "miq_templates" => ["id", "cpu_total_cores", "ems_ref", "name", "type", "ram_size"],
-      "hosts"         => ["id", "cpu_total_cores", "ems_ref", "name", "type", "ram_size"]
+      "hosts"         => ["id", "cpu_total_cores", "ems_ref", "name", "type", "ram_size"],
+      "ems_clusters"  => ["id", "uid_ems", "name", "type"],
+      "storages"      => ["id", "location", "name", "total_space", "free_space"]
     }
 
     {
