@@ -42,6 +42,9 @@ class Cfme::CloudServices::DataCollector
       "cfme_version" => cfme_version,
       "manifest" => {
         "core" => {
+          "MiqDatabase" => {
+            "guid" => nil
+          },
           "Zone" => {
             "name" => nil
           }
