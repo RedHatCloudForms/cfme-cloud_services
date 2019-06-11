@@ -50,4 +50,67 @@ RSpec.describe Cfme::CloudServices::DataCollector do
       )
     end
   end
+
+  describe "#collect" do
+    before { FactoryBot.create(:small_environment) }
+    let(:ems) { ManageIQ::Providers::Vmware::InfraManager.first }
+    let(:processed) { described_class.new(ems) }
+
+    it "calls post_payload method" do
+      expect(processed).to receive(:process).and_call_original
+      expect(processed).to receive(:post_payload)
+      processed.send(:collect)
+    end
+  end
+
+  describe "#post_payload" do
+    before { FactoryBot.create(:small_environment) }
+    let(:temporary_file) { Tempfile.new("file.tmp") }
+    let(:command_params) { %W[--payload=#{temporary_file.path} --content-type=application/vnd.redhat.topological-inventory.something+tgz] }
+
+    let(:payload) { {} }
+
+    it "calls insights-client with proper parameters" do
+      processed = described_class.new(nil)
+
+      allow(processed).to receive(:gzipped_tar_file_from) { |&block| block.call(temporary_file.path) }
+
+      expect { |probe| processed.gzipped_tar_file_from(&probe).to yield_with_args(temporary_file.path) }
+
+      expect(AwesomeSpawn).to receive(:run).with("insights-client", :params => command_params)
+      expect(processed).to receive(:gzipped_tar_file_from).with(JSON.generate(payload))
+
+      processed.send(:post_payload, payload)
+    end
+  end
+
+  describe "gzipped_tar_file_from" do
+    before { FactoryBot.create(:small_environment) }
+    let(:ems) { ManageIQ::Providers::Vmware::InfraManager.first }
+    let(:processed) { described_class.new(ems) }
+    let(:payload) { {"data" => "XXX"} }
+
+    def unpack_tar_gz(io)
+      require "rubygems/package"
+
+      Zlib::GzipReader.wrap(io) do |gz|
+        Gem::Package::TarReader.new(gz) do |tar|
+          tar.each { |entry| yield entry }
+        end
+      end
+    end
+
+    it "returns non empty result" do
+      processed.gzipped_tar_file_from(JSON.generate(payload)) do |file_path|
+        file = File.open(file_path, "r")
+        exp = file.readlines.join("")
+        io = StringIO.new(exp, "r")
+        unpack_tar_gz(io) do |file_stream|
+          require "json/stream"
+          inventory = JSON::Stream::Parser.parse(file_stream)
+          expect(inventory).to eq(payload)
+        end
+      end
+    end
+  end
 end
