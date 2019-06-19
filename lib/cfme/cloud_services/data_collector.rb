@@ -100,6 +100,6 @@ class Cfme::CloudServices::DataCollector
   end
 
   def cfme_version
-    "5.11.0.0" # TODO: Dynamically retrieve this
+    Vmdb::Appliance.VERSION
   end
 end
