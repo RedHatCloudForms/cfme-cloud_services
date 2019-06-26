@@ -28,16 +28,68 @@ class Cfme::CloudServices::DataCollector
     #   - Should we allow collection of non-model information, such as replication,
     #     pg_* tables or filesystem level things?
     common = {
-      "id"            => nil,
-      "api_version"   => nil,
-      "guid"          => nil,
-      "name"          => nil,
-      "type"          => nil,
-      "vms"           => ["id", "cpu_total_cores", "ems_ref", "name", "type", "ram_size"],
-      "miq_templates" => ["id", "cpu_total_cores", "ems_ref", "name", "type", "ram_size"],
-      "hosts"         => ["id", "cpu_total_cores", "ems_ref", "name", "type", "ram_size"],
-      "ems_clusters"  => ["id", "uid_ems", "name", "type"],
-      "storages"      => ["id", "location", "name", "total_space", "free_space"]
+      "id"                  => nil,
+      "name"                => nil,
+      "type"                => nil,
+      "guid"                => nil,
+      "api_version"         => nil,
+      "emstype_description" => nil,
+      "hostname"            => nil,
+      "vms"                 => {
+        "id"                   => nil,
+        "name"                 => nil,
+        "type"                 => nil,
+        "guid"                 => nil,
+        "uid_ems"              => nil,
+        "archived"             => nil,
+        "cpu_cores_per_socket" => nil,
+        "cpu_total_cores"      => nil,
+        "disks_aligned"        => nil,
+        "ems_ref"              => nil,
+        "has_rdm_disk"         => nil,
+        "host_id"              => nil,
+        "linked_clone"         => nil,
+        "orphaned"             => nil,
+        "power_state"          => nil,
+        "ram_size_in_bytes"    => nil,
+        "retired"              => nil,
+        "v_datastore_path"     => nil,
+        "hardware"             => {
+          "id"    => nil,
+          "disks" => {
+            "id"           => nil,
+            "device_name"  => nil,
+            "device_type"  => nil,
+            "disk_type"    => nil,
+            "free_space"   => nil,
+            "mode"         => nil,
+            "size"         => nil,
+            "size_on_disk" => nil,
+            "partitions"   => {
+              "id"                => nil,
+              "name"              => nil,
+              "controller"        => nil,
+              "free_space"        => nil,
+              "partition_type"    => nil,
+              "size"              => nil,
+              "start_address"     => nil,
+              "used_space"        => nil,
+              "virtual_disk_file" => nil,
+              "volume_group"      => nil,
+              "volumes"           => {
+                "id"           => nil,
+                "name"         => nil,
+                "filesystem"   => nil,
+                "free_space"   => nil,
+                "size"         => nil,
+                "typ"          => nil,
+                "used_space"   => nil,
+                "volume_group" => nil,
+              }
+            }
+          }
+        }
+      }
     }
 
     {
@@ -45,17 +97,19 @@ class Cfme::CloudServices::DataCollector
       "manifest" => {
         "core" => {
           "MiqDatabase" => {
-            "guid" => nil
+            "id"                 => nil,
+            "guid"               => nil,
+            "region_number"      => nil,
+            "region_description" => nil,
           },
           "Zone" => {
+            "id"   => nil,
             "name" => nil
           }
         },
-        "by_provider_type" => {
-          "ManageIQ::Providers::OpenStack::CloudManager" => common.clone,
-          "ManageIQ::Providers::Redhat::InfraManager" => common.clone,
-          "ManageIQ::Providers::Vmware::InfraManager" => common.clone,
-        }
+        "ManageIQ::Providers::OpenStack::CloudManager" => common.clone,
+        "ManageIQ::Providers::Redhat::InfraManager"    => common.clone,
+        "ManageIQ::Providers::Vmware::InfraManager"    => common.clone,
       }
     }.to_json
   end
@@ -65,35 +119,62 @@ class Cfme::CloudServices::DataCollector
     when "core"
       process_core(manifest)
     when ExtManagementSystem
-      process_by_provider_type(manifest)
+      process_provider(manifest)
     else
       raise "Unknown target: #{target.inspect}"
     end
   end
 
   def process_core(manifest)
-    core_manifest = manifest.fetch_path("manifest", "core")
-    return if core_manifest.blank?
+    manifest = manifest.fetch_path("manifest", "core")
+    return if manifest.blank?
 
-    core_manifest.each_with_object({}) do |(model, model_manifest), payload|
-      payload.store_path("core", model, model.constantize.all.map { |m| extract_data(m, model_manifest) })
+    manifest.each_with_object({}) do |(model, model_manifest), payload|
+      relation = scope_with_includes(manifest, model.constantize)
+      content  = relation.map { |t| extract_data(t, model_manifest) }
+      payload.store_path("core", model, content)
     end
   end
 
-  def process_by_provider_type(manifest)
-    model_manifest = manifest.fetch_path("manifest", "by_provider_type", target.class.name)
-    return if model_manifest.blank?
+  def process_provider(manifest)
+    manifest = manifest.fetch_path("manifest", target.class.name)
+    return if manifest.blank?
 
-    {"by_provider_type" => {target.class.name => extract_data(target, model_manifest)}}
+    object  = scope_with_includes(manifest, target.class).find_by(:id => target.id)
+    content = extract_data(object, manifest)
+    {target.class.name => content}
   end
 
-  def extract_data(target, model_manifest)
-    return unless model_manifest
+  def scope_with_includes(manifest, klass)
+    klass.includes(includes_for(manifest, klass))
+  end
 
-    model_manifest.each_with_object({}) do |(relation_or_column, attributes), payload|
-      content = target.public_send(relation_or_column)
-      content = content.select(attributes).map(&:attributes) if attributes
-      payload.store_path(relation_or_column, content)
+  def includes_for(manifest, klass)
+    manifest.each_with_object([]) do |(key, sub_manifest), includes|
+      if klass.virtual_attribute?(key)
+        includes << key
+      elsif (relation = klass.reflections[key] || klass.virtual_reflection(key))
+        includes << {key => includes_for(sub_manifest, relation.klass)}
+      end
+    end
+  end
+
+  def extract_data(target, manifest)
+    return unless manifest
+
+    manifest.each_with_object({}) do |(key, sub_manifest), payload|
+      attr_or_rel = target.public_send(key)
+
+      content =
+        if attr_or_rel.kind_of?(ActiveRecord::Relation)
+          attr_or_rel.map { |o| extract_data(o, sub_manifest) }
+        elsif attr_or_rel.kind_of?(ActiveRecord::Base)
+          extract_data(attr_or_rel, sub_manifest)
+        else
+          attr_or_rel
+        end
+
+      payload.store_path(key, content)
     end
   end
 
