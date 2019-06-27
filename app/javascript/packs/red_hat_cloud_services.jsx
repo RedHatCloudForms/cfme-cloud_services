@@ -8,13 +8,13 @@ import {  setPageWrapper, paginate } from './helper'
 const filterFields = [
   {
     id: 'name',
-    title: 'Name',
+    title: __('Name'),
     placeholder: 'Filter by Name',
     filterType: 'text'
   },
   {
     id: 'type',
-    title: 'Type',
+    title: __('Type'),
     placeholder: 'Filter by Provider Type',
     filterType: 'text'
   }
@@ -22,21 +22,21 @@ const filterFields = [
 
 const columns = [
   {
-    label: 'Name',
+    label: __('Name'),
     property: 'name'
   },
   {
-    label: 'Type',
+    label: __('Type'),
     property: 'type'
   },
   {
-    label: 'Action',
+    label: __('Action'),
     property: 'action'
   },
 ];
 
 
-const RedHatCloudServices = (_props) => {
+const RedHatCloudServices = () => {
     const [state, dispatch] = useReducer(reducer, {
       sortableColumnProperty: 'name',
       currentFilterType: filterFields[0],
@@ -73,7 +73,7 @@ const RedHatCloudServices = (_props) => {
     }, [rows])
 
     useEffect(() => {
-      dispatch({type: 'setTotal', total: rows.filter(row => row[currentFilterType.id].toLowerCase().includes(currentValue.toLowerCase())).length});
+    dispatch({type: 'setTotal', total: rows.filter(row => row[currentFilterType.id].toLowerCase().includes(currentValue.toLowerCase())).length});
     }, [pagination])
 
     useEffect(() => {
@@ -96,8 +96,7 @@ const RedHatCloudServices = (_props) => {
                   currentFilterType={currentFilterType}
                   onFilterTypeSelected={(filterType) => {
                     if (currentFilterType !== filterType) {
-                      dispatch({ type: 'setFilterValue', value: ''});
-                      dispatch({ type: 'setFilterType', filterType: filterType});
+                      dispatch({ type: 'setFilter', value: '', filterType: filterType});
                     }
                   }}
                 />
@@ -106,15 +105,14 @@ const RedHatCloudServices = (_props) => {
                   value={currentValue}
                   placeholder={currentFilterType.placeholder}
                   onChange={({ target: { value: filterValue } }) => {
-                    // setCurrentValue(filterValue);
                     dispatch({ type: 'setFilterValue', value: filterValue});
                   }}
                 />
               </Filter>
             </div>
             <div class="form-group">
-              <button class="btn btn-default" type="button" id="upload-selected">Upload</button>
-              <button class="btn btn-default" type="button" id="Synchronize" disabled>Synchronize</button>
+              <button class="btn btn-default" type="button" id="upload-selected">{__('Upload')}</button>
+              <button class="btn btn-default" type="button" id="Synchronize" disabled={rows.filter(row => row.selected == true).length == 0}>{__('Synchronize')}</button>
             </div>
           </form>
         </div>

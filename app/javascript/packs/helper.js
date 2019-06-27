@@ -43,8 +43,7 @@ export const createColumns = (showIcon, showSelect, columns, dispatch) => {
           label: '',
           formatters: [headerFormat],
         },
-      },
-      ...result];
+      }];
     }
     if (showSelect) {
       result = [

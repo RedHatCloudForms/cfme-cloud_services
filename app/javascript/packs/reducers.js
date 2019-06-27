@@ -20,10 +20,10 @@ export const reducer = (state, action) => {
       return {...state, columns: action.columns}
     case 'setRows':
       return {...state, rows: [...action.rows]}
+    case 'setFilter':
+      return {...state, currentValue: action.value, currentFilterType: action.filterType}
     case 'setFilterValue':
       return {...state, currentValue: action.value}
-    case 'setFilterType':
-      return {...state, currentFilterType: action.filterType}
     case 'sortColumn':
       return {...state, ...sortColumn(state, action)};
     case 'selectRow':
@@ -33,7 +33,7 @@ export const reducer = (state, action) => {
     case 'setTotal':
       return {...state, total: action.total}
     default:
-      return state;
+      throw 'Unknown action'
 
   }
 }
