@@ -1,6 +1,9 @@
 require "json"
+require "cfme/cloud_services/payload_builder"
 
 class Cfme::CloudServices::DataCollector
+  include Cfme::CloudServices::PayloadBuilder
+
   def self.collect(target)
     new(target).collect
   end
@@ -97,11 +100,27 @@ class Cfme::CloudServices::DataCollector
     end
   end
 
+  INSIGHTS_CLIENT_COMMAND = "insights-client".freeze
+  CONTENT_TYPE = "application/vnd.redhat.topological-inventory.something+tgz".freeze
+
   def post_payload(payload)
-    # TODO: Post the payload to the cloud...for now just write to log and STDOUT
-    msg = "Collected the following payload:\n#{JSON.pretty_generate(payload)}"
-    $log.info msg
-    puts msg
+    $log.info "Collected the following payload:\n#{JSON.pretty_generate(payload)}"
+
+    result = nil
+
+    gzipped_tar_file_from(JSON.generate(payload)) do |packed_temporary_file_path|
+      command_params = %W[--payload=#{packed_temporary_file_path} --content-type=#{CONTENT_TYPE}]
+      $log.info "Trying to send inventory thru #{INSIGHTS_CLIENT_COMMAND}..."
+      result = AwesomeSpawn.run(INSIGHTS_CLIENT_COMMAND, :params => command_params)
+
+      $log.error "Successful upload by #{INSIGHTS_CLIENT_COMMAND}: #{result.output}" if result.success?
+      $log.error "Error in upload by #{INSIGHTS_CLIENT_COMMAND}: #{result.output} #{result.error}" if result.failure?
+    end
+
+    result&.success?
+  rescue StandardError => e
+    $log.error "Error with #{INSIGHTS_CLIENT_COMMAND}: #{e}"
+    false
   end
 
   def cfme_version
