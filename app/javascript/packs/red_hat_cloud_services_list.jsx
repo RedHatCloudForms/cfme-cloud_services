@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useReducer }  from 'react';
-import { TablePfProvider, Table, Filter, FormControl, Button, Checkbox, Paginator, PAGINATION_VIEW } from 'patternfly-react'
+import { TablePfProvider, Table, Filter, FormControl, Button, Checkbox, Paginator, ToastNotification, PAGINATION_VIEW } from 'patternfly-react'
 import orderBy from 'lodash/orderBy'
 import RedHatCloudServicesTable from './red_hat_cloud_services_table';
 import { reducer, selectRow } from './reducers';
@@ -35,13 +35,13 @@ const columns = [
   },
 ];
 
-
-const RedHatCloudServices = () => {
+const RedHatCloudServicesList = () => {
     const [state, dispatch] = useReducer(reducer, {
       sortableColumnProperty: 'name',
       currentFilterType: filterFields[0],
       currentValue: '',
       rows: [],
+      showToast: false,
       sortOrderAsc: true,
       columns: [],
       pagination: {
@@ -54,6 +54,12 @@ const RedHatCloudServices = () => {
 
     const { currentFilterType, currentValue, rows, pagination } = state;
     const setPage = setPageWrapper(state, dispatch);
+    const showToast = (visible) => (
+      visible
+      ? <ToastNotification style={{width: '100%'}} type='info' onDismiss={() => dispatch({type: 'setToastVisibility', showToast: false})}>{__('Synchronization task has been initiated.')}</ToastNotification>
+      : null
+    )
+
 
     useEffect(() => {
       let labelTable = {};
@@ -65,7 +71,7 @@ const RedHatCloudServices = () => {
             id: item.id,
             name: item.name,
             type: labelTable[item.type] || __('Unknown'),
-            action: <Button>Synchronize</Button>,
+            action: <Button onClick={() => dispatch({type: 'setToastVisibility', showToast: true})}>Synchronize</Button>,
             selected: false,
           }))
           dispatch({type: 'setRows', rows: orderBy(rows, 'name', 'asc')})
@@ -91,8 +97,21 @@ const RedHatCloudServices = () => {
     return (
       <div>
         <h1>
-        Red Hat Cloud Services
+          Platform Synchronization
         </h1>
+        <div>
+          <p>
+            Here is text explaining what will happen when you click on button below
+          </p>
+          <div class="form-group">
+            <button class="btn btn-default" type="button" id="upload-selected">{__('Synchronize this Platform to Cloud')}</button>
+          </div>
+        </div>
+        <h1>
+          Provider Synchronization
+        </h1>
+        {showToast(state.showToast)}
+
         <div className="row toolbar-pf table-view-pf-toolbar">
           <form className="toolbar-pf-actions">
             <div className="form-group toolbar-pf-filter">
@@ -117,7 +136,6 @@ const RedHatCloudServices = () => {
               </Filter>
             </div>
             <div class="form-group">
-              <button class="btn btn-default" type="button" id="upload-selected">{__('Upload')}</button>
               <button class="btn btn-default" type="button" id="Synchronize" disabled={rows.filter(row => row.selected == true).length == 0}>{__('Synchronize')}</button>
             </div>
           </form>
@@ -132,4 +150,4 @@ const RedHatCloudServices = () => {
     );
 };
 
-export default RedHatCloudServices;
+export default RedHatCloudServicesList;

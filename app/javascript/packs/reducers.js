@@ -32,6 +32,8 @@ export const reducer = (state, action) => {
       return {...state, pagination: action.pagination};
     case 'setTotal':
       return {...state, total: action.total}
+    case 'setToastVisibility':
+      return {...state, showToast: action.showToast}
     default:
       throw 'Unknown action'
 

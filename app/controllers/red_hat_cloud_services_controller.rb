@@ -4,8 +4,14 @@ class RedHatCloudServicesController < ApplicationController
 
   def show_list
     @layout = 'red_hat_cloud_services'
-    @page_title = _('red hat cloud services')
+    @page_title = _('Red Hat Cloud Services')
     render :show_list
+  end
+
+  def show
+    @layout = 'red_hat_cloud_services'
+    @page_title = _('Red Hat Cloud Services')
+    render :show
   end
 
   helper do
