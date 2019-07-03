@@ -97,7 +97,7 @@ const RedHatCloudServicesList = () => {
     return (
       <div>
         <h1>
-          Platform Synchronization
+          Global Synchronization
         </h1>
         <div>
           <p>
