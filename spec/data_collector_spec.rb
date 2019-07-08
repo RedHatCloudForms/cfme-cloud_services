@@ -32,7 +32,7 @@ RSpec.describe Cfme::CloudServices::DataCollector do
       ems = ManageIQ::Providers::Vmware::InfraManager.first
 
       processed = described_class.new(ems).send(:process, parsed_manifest)
-      expect(processed.keys).to eq [ems.class.name]
+      expect(processed.keys).to include(ems.class.name)
       processed = processed[ems.class.name].first
 
       expect(processed.keys).to match_array ["id", "name", "vms", "hosts"]
@@ -46,7 +46,7 @@ RSpec.describe Cfme::CloudServices::DataCollector do
 
     it "with the core target" do
       processed = described_class.new("core").send(:process, parsed_manifest)
-      expect(processed.keys).to eq ["core"]
+      expect(processed.keys).to include("core")
       processed = processed["core"]
 
       expect(processed.keys).to match_array ["Zone"]

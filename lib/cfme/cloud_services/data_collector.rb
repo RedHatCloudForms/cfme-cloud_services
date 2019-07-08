@@ -96,7 +96,6 @@ class Cfme::CloudServices::DataCollector
     }
 
     {
-      "cfme_version" => cfme_version,
       "manifest" => {
         "core" => {
           "MiqDatabase" => {
@@ -118,7 +117,7 @@ class Cfme::CloudServices::DataCollector
   end
 
   def process(manifest)
-    case target
+    payload = case target
     when "core"
       process_core(manifest)
     when ExtManagementSystem
@@ -126,6 +125,11 @@ class Cfme::CloudServices::DataCollector
     else
       raise "Unknown target: #{target.inspect}"
     end
+
+    {
+      "schema"       => {"name" => "cfme"},
+      "cfme_version" => cfme_version,
+    }.merge(payload)
   end
 
   def process_core(manifest)
