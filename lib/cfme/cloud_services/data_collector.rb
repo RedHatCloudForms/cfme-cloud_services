@@ -145,7 +145,7 @@ class Cfme::CloudServices::DataCollector
 
     object  = scope_with_includes(manifest, target.class).find_by(:id => target.id)
     content = extract_data(object, manifest)
-    {target.class.name => content}
+    {target.class.name => [content]}
   end
 
   def scope_with_includes(manifest, klass)

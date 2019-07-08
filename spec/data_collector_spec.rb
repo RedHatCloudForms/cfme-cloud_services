@@ -33,7 +33,7 @@ RSpec.describe Cfme::CloudServices::DataCollector do
 
       processed = described_class.new(ems).send(:process, parsed_manifest)
       expect(processed.keys).to eq [ems.class.name]
-      processed = processed[ems.class.name]
+      processed = processed[ems.class.name].first
 
       expect(processed.keys).to match_array ["id", "name", "vms", "hosts"]
       expect(processed).to include(
