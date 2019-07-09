@@ -8,9 +8,9 @@ const RedHatCloudServicesRedirect = () => {
         Services
       </h1>
       <p>
-      Here is some useful text that explains everything
+        Explore our Software-as-a-Services offerings at <a href='https://cloud.redhat.com/'>cloud.redhat.com</a>.
       </p>
-      <Button href='https://www.redhat.com/'>
+      <Button href='https://cloud.redhat.com/'>
         Take me there
       </Button>
     </div>
