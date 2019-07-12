@@ -1,0 +1,12 @@
+:collections:
+  :cfme_cloud_services:
+    :description: Red Hat Cloud Services
+    :identifier: cfme_cloud_services
+    :options:
+    - :collection
+    :verbs:
+    - :post
+    :collection_actions:
+      :post:
+      - :name: sync
+        :identifier: cfme_cloud_services
