@@ -95,6 +95,52 @@ class Cfme::CloudServices::DataCollector
       }
     }
 
+    infra_common = {
+      "ems_clusters" => {
+        "id"               => nil,
+        "uid_ems"          => nil,
+        "ems_ref"          => nil,
+        "ha_enabled"       => nil,
+        "drs_enabled"      => nil,
+        "effective_cpu"    => nil,
+        "effective_memory" => nil,
+      },
+      "hosts"        => {
+        "id"                   => nil,
+        "name"                 => nil,
+        "type"                 => nil,
+        "hostname"             => nil,
+        "ipaddress"            => nil,
+        "power_state"          => nil,
+        "guid"                 => nil,
+        "uid_ems"              => nil,
+        "mac_address"          => nil,
+        "maintenance"          => nil,
+        "vmm_vendor"           => nil,
+        "vmm_version"          => nil,
+        "vmm_product"          => nil,
+        "vmm_buildnumber"      => nil,
+        "archived"             => nil,
+        "cpu_cores_per_socket" => nil,
+        "cpu_total_cores"      => nil,
+        "ems_cluster_id"       => nil,
+      },
+      "storages" => {
+        "id"                  => nil,
+        "name"                => nil,
+        "location"            => nil,
+        "store_type"          => nil,
+        "total_space"         => nil,
+        "free_space"          => nil,
+        "uncommitted"         => nil,
+        "storage_domain_type" => nil,
+        "host_storages"       => {
+          "ems_ref" => nil,
+          "host_id" => nil,
+        }
+      }
+    }
+
     {
       "cfme_version" => cfme_version,
       "manifest" => {
@@ -111,7 +157,9 @@ class Cfme::CloudServices::DataCollector
           }
         },
         "ManageIQ::Providers::OpenStack::CloudManager" => common.clone,
-        "ManageIQ::Providers::Redhat::InfraManager"    => common.clone,
+        "ManageIQ::Providers::Redhat::InfraManager"    => common.clone.merge(
+          infra_common
+        ),
         "ManageIQ::Providers::Vmware::InfraManager"    => common.clone.merge(
           "ems_extensions" => {
             "id"      => nil,
@@ -130,6 +178,8 @@ class Cfme::CloudServices::DataCollector
             "total_licenses"  => nil,
             "used_licenses"   => nil,
           },
+        ).merge(
+          infra_common
         ),
       }
     }.to_json
