@@ -112,7 +112,25 @@ class Cfme::CloudServices::DataCollector
         },
         "ManageIQ::Providers::OpenStack::CloudManager" => common.clone,
         "ManageIQ::Providers::Redhat::InfraManager"    => common.clone,
-        "ManageIQ::Providers::Vmware::InfraManager"    => common.clone,
+        "ManageIQ::Providers::Vmware::InfraManager"    => common.clone.merge(
+          "ems_extensions" => {
+            "id"      => nil,
+            "ems_ref" => nil,
+            "key"     => nil,
+            "company" => nil,
+            "label"   => nil,
+            "summary" => nil,
+            "version" => nil
+          },
+          "ems_licenses"   => {
+            "id"              => nil,
+            "ems_ref"         => nil,
+            "name"            => nil,
+            "license_edition" => nil,
+            "total_licenses"  => nil,
+            "used_licenses"   => nil,
+          },
+        ),
       }
     }.to_json
   end
