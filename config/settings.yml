@@ -1,0 +1,7 @@
+---
+:cfme_cloud_services:
+  :manifest_configuration:
+    :scheme: https
+    :host: cert.cloud.redhat.com
+    :port:
+    :path: /api/topological-inventory/cfme/manifest
