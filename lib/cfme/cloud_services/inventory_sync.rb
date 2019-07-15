@@ -1,7 +1,7 @@
 module Cfme
   module CloudServices
-    class InventoryUpload
-      def self.upload(targets)
+    class InventorySync
+      def self.sync(targets)
         targets = targets_from_queue(targets)
 
         ManifestFetcher.fetch do |manifest|
@@ -13,7 +13,7 @@ module Cfme
         end
       end
 
-      def self.upload_queue(userid, targets)
+      def self.sync_queue(userid, targets)
         task_opts = {
           :action => "Collect and upload inventory to cloud.redhat.com",
           :userid => userid
@@ -21,7 +21,7 @@ module Cfme
 
         queue_opts = {
           :class_name  => self.name,
-          :method_name => "upload",
+          :method_name => "sync",
           :role        => "internet_connectivity",
           :args        => [targets_for_queue(targets)]
         }
