@@ -1,12 +1,24 @@
 :collections:
-  :cfme_cloud_services:
-    :description: Red Hat Cloud Services
-    :identifier: cfme_cloud_services
+  :redhat_cloud_service_providers:
+    :description: Red Hat Cloud Service Providers
+    :identifier: redhat_cloud_service
     :options:
     - :collection
     :verbs:
+    - :get
     - :post
+    :klass: ExtManagementSystem
     :collection_actions:
+      :get:
+      - :name: read
+        :identifier: redhat_cloud_services
       :post:
       - :name: sync
-        :identifier: cfme_cloud_services
+        :identifier: redhat_cloud_services
+    :resource_actions:
+      :get:
+      - :name: read
+        :identifier: redhat_cloud_services
+      :post:
+      - :name: sync
+        :identifier: redhat_cloud_services
