@@ -11,7 +11,13 @@ class Cfme::CloudServices::DataPackager
     file.close(false)
 
     path = Pathname.new(file.path)
-    block_given? ? yield(path) : path
+    return path unless block_given?
+
+    begin
+      yield(path)
+    ensure
+      path.unlink
+    end
   end
 
   private_class_method def self.targz(files, io = StringIO.new)
