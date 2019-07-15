@@ -32,12 +32,16 @@ module Cfme
       private_class_method def self.targets_for_queue(targets)
         # Handle someone passing in a single instance, an array of instances,
         # an array of [class_name, id] pairs, or a mixture of instances and
-        # [class_name, id] pairs
+        # [class_name, id] pairs, and "core"
         targets = Array(targets) unless targets.kind_of?(Array)
         targets.map do |klass_or_instance, id|
           if id.nil?
-            instance = klass_or_instance
-            [instance.class.name, instance.id]
+            if klass_or_instance.kind_of?(ActiveRecord::Base)
+              instance = klass_or_instance
+              [instance.class.name, instance.id]
+            else
+              klass_or_instance
+            end
           else
             klass = klass_or_instance.to_s
             [klass, id]

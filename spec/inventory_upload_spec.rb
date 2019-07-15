@@ -41,7 +41,7 @@ RSpec.describe Cfme::CloudServices::InventoryUpload do
     end
 
     context "with an array of class, id pairs" do
-      let(:targets) { [[ems_vmware.class.name, ems_vmware.id], [ems_rhv.class.name, ems_rhv.id]] }
+      let(:targets) { [[ems_vmware.class.name, ems_vmware.id], "core", [ems_rhv.class.name, ems_rhv.id]] }
 
       it "queues the args as a class, id pair" do
         task_id = described_class.upload_queue("userid", targets)
@@ -49,6 +49,7 @@ RSpec.describe Cfme::CloudServices::InventoryUpload do
 
         arg = task.miq_queue.args.first
         expect(arg.first).to eq([ems_vmware.class.name, ems_vmware.id])
+        expect(arg.second).to eq("core")
         expect(arg.last).to  eq([ems_rhv.class.name, ems_rhv.id])
       end
     end
