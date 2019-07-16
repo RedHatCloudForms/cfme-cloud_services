@@ -15,7 +15,7 @@ module Cfme
 
       initializer 'plugin' do
         Menu::CustomLoader.register(
-          Menu::Section.new(:red_hat_cloud_services, N_("Red Hat Cloud"), 'pficon rh-icon', [
+          Menu::Section.new(:red_hat_cloud_services, N_("Red Hat Cloud"), 'pficon ff ff-red-hat-logo', [
            Menu::Item.new('services', N_('Services'), 'red_hat_cloud_services', {:feature => 'red_hat_cloud_services', :any => true}, '/red_hat_cloud_services/show'),
            Menu::Item.new('services', N_('Providers'), 'red_hat_cloud_services', {:feature => 'red_hat_cloud_services', :any => true}, '/red_hat_cloud_services/show_list')
          ])

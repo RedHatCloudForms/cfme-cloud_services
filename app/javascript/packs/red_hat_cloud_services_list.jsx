@@ -3,7 +3,7 @@ import { TablePfProvider, Table, Filter, FormControl, Button, Checkbox, Paginato
 import orderBy from 'lodash/orderBy'
 import RedHatCloudServicesTable from './red_hat_cloud_services_table';
 import { reducer, selectRow } from './reducers';
-import {  setPageWrapper, paginate } from './helper'
+import {  setPageWrapper, paginate } from './helper';
 
 const filterFields = [
   {
@@ -97,11 +97,11 @@ const RedHatCloudServicesList = () => {
     return (
       <div>
         <h1>
-          Platform Synchronization
+          Global Synchronization
         </h1>
         <div>
           <p>
-            Here is text explaining what will happen when you click on button below
+            Synchronize your CloudForms data to Red Hat Cloud Services.
           </p>
           <div class="form-group">
             <button class="btn btn-default" type="button" id="upload-selected">{__('Synchronize this Platform to Cloud')}</button>
@@ -111,7 +111,9 @@ const RedHatCloudServicesList = () => {
           Provider Synchronization
         </h1>
         {showToast(state.showToast)}
-
+        <p>
+          Synchronize your CloudForms data for selected providers.
+        </p>
         <div className="row toolbar-pf table-view-pf-toolbar">
           <form className="toolbar-pf-actions">
             <div className="form-group toolbar-pf-filter">
