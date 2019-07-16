@@ -62,21 +62,16 @@ const RedHatCloudServicesList = () => {
 
 
     useEffect(() => {
-      let labelTable = {};
-      API.options('/api/providers').then(options => {
-        labelTable = options.data.supported_providers.reduce((obj, item) => (obj[item.type] = item.title, obj) ,{});
-      }).then(
-        API.get('/api/providers?expand=resources').then(data => {
-          const rows = data.resources.map( (item) => ({
-            id: item.id,
-            name: item.name,
-            type: labelTable[item.type] || __('Unknown'),
-            action: <Button onClick={() => dispatch({type: 'setToastVisibility', showToast: true})}>Synchronize</Button>,
-            selected: false,
-          }))
-          dispatch({type: 'setRows', rows: orderBy(rows, 'name', 'asc')})
-        })
-      );
+      API.get('/api/redhat_cloud_service_providers?expand=resources').then(data => {
+        const rows = data.resources.map( (item) => ({
+          id: item.id,
+          name: item.name,
+          type: item.type,
+          action: <Button onClick={() => dispatch({type: 'setToastVisibility', showToast: true})}>Synchronize</Button>,
+          selected: false,
+        }))
+        dispatch({type: 'setRows', rows: orderBy(rows, 'name', 'asc')})
+      })
 
     }, [])
 
