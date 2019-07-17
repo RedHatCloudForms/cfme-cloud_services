@@ -60,6 +60,22 @@ const RedHatCloudServicesList = () => {
       : null
     )
 
+    function SyncProvider(provider_id) {
+      API.post(`/api/redhat_cloud_service_providers/${provider_id}`, {
+        action: 'sync',
+      }).then(() => dispatch({type: 'setToastVisibility', showToast: true}))
+    }
+
+    function SyncProviders(selected_providers) {
+      let providers = [];
+      selected_providers.forEach( (provider) => {
+        providers.push( { id: provider.id } )
+      });
+      API.post('/api/redhat_cloud_service_providers', {
+        action: 'sync',
+        resources: providers,
+      }).then(() => dispatch({type: 'setToastVisibility', showToast: true}))
+    }
 
     useEffect(() => {
       API.get('/api/redhat_cloud_service_providers?expand=resources').then(data => {
@@ -67,7 +83,7 @@ const RedHatCloudServicesList = () => {
           id: item.id,
           name: item.name,
           type: item.type,
-          action: <Button onClick={() => dispatch({type: 'setToastVisibility', showToast: true})}>Synchronize</Button>,
+          action: <Button onClick={() => SyncProvider(item.id)}>Synchronize</Button>,
           selected: false,
         }))
         dispatch({type: 'setRows', rows: orderBy(rows, 'name', 'asc')})
@@ -133,7 +149,7 @@ const RedHatCloudServicesList = () => {
               </Filter>
             </div>
             <div class="form-group">
-              <button class="btn btn-default" type="button" id="Synchronize" disabled={rows.filter(row => row.selected == true).length == 0}>{__('Synchronize')}</button>
+              <button class="btn btn-default" type="button" id="Synchronize" disabled={rows.filter(row => row.selected == true).length == 0} onClick={() => SyncProviders(rows.filter(row => row.selected == true))}>{__('Synchronize')}</button>
             </div>
           </form>
         </div>
