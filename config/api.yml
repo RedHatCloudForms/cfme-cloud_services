@@ -1,5 +1,5 @@
 :collections:
-  :redhat_cloud_service_providers:
+  :red_hat_cloud_service_providers:
     :description: Red Hat Cloud Service Providers
     :identifier: redhat_cloud_service
     :options:

@@ -61,7 +61,7 @@ const RedHatCloudServicesList = () => {
     )
 
     function SyncProvider(provider_id) {
-      API.post(`/api/redhat_cloud_service_providers/${provider_id}`, {
+      API.post(`/api/red_hat_cloud_service_providers/${provider_id}`, {
         action: 'sync',
       }).then(() => dispatch({type: 'setToastVisibility', showToast: true}))
     }
@@ -71,14 +71,14 @@ const RedHatCloudServicesList = () => {
       selected_providers.forEach( (provider) => {
         providers.push( { id: provider.id } )
       });
-      API.post('/api/redhat_cloud_service_providers', {
+      API.post('/api/red_hat_cloud_service_providers', {
         action: 'sync',
         resources: providers,
       }).then(() => dispatch({type: 'setToastVisibility', showToast: true}))
     }
 
     useEffect(() => {
-      API.get('/api/redhat_cloud_service_providers?expand=resources').then(data => {
+      API.get('/api/red_hat_cloud_service_providers?expand=resources').then(data => {
         const rows = data.resources.map( (item) => ({
           id: item.id,
           name: item.name,
