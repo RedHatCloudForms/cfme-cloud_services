@@ -9,7 +9,7 @@ module Api
       klass = collection_class(collection_type)
       provider = find_resource(klass, "id", id)
       provider = filter_resource(provider, collection_type, klass)
-      raise NotFoundError, "Invalid #{provider_title} id:#{id} specified" unless provider_types.include?(provider.type)
+      raise NotFoundError, "Invalid Provider id:#{id} specified" unless provider_types.include?(provider.type)
 
       provider
     end
@@ -26,11 +26,7 @@ module Api
     private
 
     def provider_ident(provider)
-      "#{provider_title} id:#{provider.id} name:'#{provider.name}'"
-    end
-
-    def provider_title
-      "Red Hat Cloud Services Provider"
+      "Provider id:#{provider.id} name:'#{provider.name}'"
     end
 
     def provider_types

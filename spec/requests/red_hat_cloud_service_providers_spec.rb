@@ -51,7 +51,7 @@ describe "Red Hat Cloud Service Providers API" do
       expect(response.parsed_body).to include(
         "error" => a_hash_including(
           "kind"    => "not_found",
-          "message" => a_string_including("Invalid Red Hat Cloud Services Provider id:#{ems1.id} specified")
+          "message" => a_string_including("Invalid Provider id:#{ems1.id} specified")
         )
       )
       expect(response).to have_http_status(:not_found)
@@ -69,7 +69,7 @@ describe "Red Hat Cloud Service Providers API" do
 
       expect(response.parsed_body).to include(
         "success" => true,
-        "message" => "Syncing Red Hat Cloud Services Provider id:#{ems1.id} name:'#{ems1.name}'",
+        "message" => "Syncing Provider id:#{ems1.id} name:'#{ems1.name}'",
         "task_id" => "101"
       )
       expect(response).to have_http_status(:ok)
@@ -94,11 +94,11 @@ describe "Red Hat Cloud Service Providers API" do
         "results" => [
           a_hash_including(
             "success" => true,
-            "message" => "Syncing Red Hat Cloud Services Provider id:#{ems1.id} name:'#{ems1.name}'",
+            "message" => "Syncing Provider id:#{ems1.id} name:'#{ems1.name}'",
             "task_id" => "102"
           ), a_hash_including(
             "success" => true,
-            "message" => "Syncing Red Hat Cloud Services Provider id:#{ems2.id} name:'#{ems2.name}'",
+            "message" => "Syncing Provider id:#{ems2.id} name:'#{ems2.name}'",
             "task_id" => "103"
           )
         ]
