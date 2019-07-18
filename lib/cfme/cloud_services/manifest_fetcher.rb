@@ -10,7 +10,7 @@ class Cfme::CloudServices::ManifestFetcher
      :verify_ssl      => OpenSSL::SSL::VERIFY_PEER}
   end
 
-  private_class_method def self.raw_manifest
+  cache_with_timeout(:raw_manifest) do
     # TODO: Modeling
     #   - Should we allow collection of non-model information, such as replication,
     #     pg_* tables or filesystem level things?
@@ -30,4 +30,5 @@ class Cfme::CloudServices::ManifestFetcher
     _log.error("Error with obtaining manifest with schema: #{e.message}")
     JSON.generate({})
   end
+  private_class_method :raw_manifest
 end
