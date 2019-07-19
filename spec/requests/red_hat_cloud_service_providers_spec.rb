@@ -1,13 +1,9 @@
-module Cfme
-  module CloudServices
-    module InventorySync; end
-  end
-end
-
 describe "Red Hat Cloud Service Providers API" do
   before do
     # Let's stub the ManifestFetcher to only allow for Vmware InfraManager
-    allow(Cfme::CloudServices::ManifestFetcher.fetch["manifest"]).to receive("keys") { ["ManageIQ::Providers::Vmware::InfraManager"] }
+    allow(Cfme::CloudServices::ManifestFetcher).to receive("fetch") {
+      { "manifest" => { "ManageIQ::Providers::Vmware::InfraManager" => {}}}
+    }
   end
 
   describe "GET" do
