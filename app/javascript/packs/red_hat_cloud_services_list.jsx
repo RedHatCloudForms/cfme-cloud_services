@@ -77,6 +77,14 @@ const RedHatCloudServicesList = () => {
       }).then(() => dispatch({type: 'setToastVisibility', showToast: true}))
     }
 
+    function SyncPlatform() {
+      API.get('/api/red_hat_cloud_service_providers?expand=resources&attributes=id&sort_by=id').then(data => {
+        if (data.resources.length > 0) {
+          SyncProviders(data.resources)
+        }
+      })
+    }
+
     useEffect(() => {
       API.get('/api/red_hat_cloud_service_providers?expand=resources').then(data => {
         const rows = data.resources.map( (item) => ({
@@ -115,7 +123,7 @@ const RedHatCloudServicesList = () => {
             Synchronize your CloudForms data to Red Hat Cloud Services.
           </p>
           <div class="form-group">
-            <button class="btn btn-default" type="button" id="upload-selected">{__('Synchronize this Platform to Cloud')}</button>
+            <button class="btn btn-default" type="button" id="upload-selected" onClick={() => SyncPlatform()}>{__('Synchronize this Platform to Cloud')}</button>
           </div>
         </div>
         <h1>
