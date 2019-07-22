@@ -86,11 +86,11 @@ const RedHatCloudServicesList = () => {
     }
 
     useEffect(() => {
-      API.get('/api/red_hat_cloud_service_providers?expand=resources').then(data => {
+      API.get('/api/red_hat_cloud_service_providers?expand=resources&attributes=emstype_description').then(data => {
         const rows = data.resources.map( (item) => ({
           id: item.id,
           name: item.name,
-          type: item.type,
+          type: item.emstype_description,
           action: <Button onClick={() => SyncProvider(item.id)}>Synchronize</Button>,
           selected: false,
         }))
