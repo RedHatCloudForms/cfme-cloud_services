@@ -1,0 +1,24 @@
+:collections:
+  :red_hat_cloud_service_providers:
+    :description: Red Hat Cloud Service Providers
+    :identifier: red_hat_cloud_services
+    :options:
+    - :collection
+    :verbs:
+    - :get
+    - :post
+    :klass: ExtManagementSystem
+    :collection_actions:
+      :get:
+      - :name: read
+        :identifier: red_hat_cloud_services
+      :post:
+      - :name: sync
+        :identifier: red_hat_cloud_services
+    :resource_actions:
+      :get:
+      - :name: read
+        :identifier: red_hat_cloud_services
+      :post:
+      - :name: sync
+        :identifier: red_hat_cloud_services

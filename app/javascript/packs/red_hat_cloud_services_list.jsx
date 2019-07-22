@@ -60,23 +60,42 @@ const RedHatCloudServicesList = () => {
       : null
     )
 
+    function SyncProvider(provider_id) {
+      API.post(`/api/red_hat_cloud_service_providers/${provider_id}`, {
+        action: 'sync',
+      }).then(() => dispatch({type: 'setToastVisibility', showToast: true}))
+    }
+
+    function SyncProviders(selected_providers) {
+      let providers = [];
+      selected_providers.forEach( (provider) => {
+        providers.push( { id: provider.id } )
+      });
+      API.post('/api/red_hat_cloud_service_providers', {
+        action: 'sync',
+        resources: providers,
+      }).then(() => dispatch({type: 'setToastVisibility', showToast: true}))
+    }
+
+    function SyncPlatform() {
+      API.get('/api/red_hat_cloud_service_providers?expand=resources&attributes=id&sort_by=id').then(data => {
+        if (data.resources.length > 0) {
+          SyncProviders(data.resources)
+        }
+      })
+    }
 
     useEffect(() => {
-      let labelTable = {};
-      API.options('/api/providers').then(options => {
-        labelTable = options.data.supported_providers.reduce((obj, item) => (obj[item.type] = item.title, obj) ,{});
-      }).then(
-        API.get('/api/providers?expand=resources').then(data => {
-          const rows = data.resources.map( (item) => ({
-            id: item.id,
-            name: item.name,
-            type: labelTable[item.type] || __('Unknown'),
-            action: <Button onClick={() => dispatch({type: 'setToastVisibility', showToast: true})}>Synchronize</Button>,
-            selected: false,
-          }))
-          dispatch({type: 'setRows', rows: orderBy(rows, 'name', 'asc')})
-        })
-      );
+      API.get('/api/red_hat_cloud_service_providers?expand=resources&attributes=emstype_description').then(data => {
+        const rows = data.resources.map( (item) => ({
+          id: item.id,
+          name: item.name,
+          type: item.emstype_description,
+          action: <Button onClick={() => SyncProvider(item.id)}>Synchronize</Button>,
+          selected: false,
+        }))
+        dispatch({type: 'setRows', rows: orderBy(rows, 'name', 'asc')})
+      })
 
     }, [])
 
@@ -104,7 +123,7 @@ const RedHatCloudServicesList = () => {
             Synchronize your CloudForms data to Red Hat Cloud Services.
           </p>
           <div class="form-group">
-            <button class="btn btn-default" type="button" id="upload-selected">{__('Synchronize this Platform to Cloud')}</button>
+            <button class="btn btn-default" type="button" id="upload-selected" onClick={() => SyncPlatform()}>{__('Synchronize this Platform to Cloud')}</button>
           </div>
         </div>
         <h1>
@@ -138,7 +157,7 @@ const RedHatCloudServicesList = () => {
               </Filter>
             </div>
             <div class="form-group">
-              <button class="btn btn-default" type="button" id="Synchronize" disabled={rows.filter(row => row.selected == true).length == 0}>{__('Synchronize')}</button>
+              <button class="btn btn-default" type="button" id="Synchronize" disabled={rows.filter(row => row.selected == true).length == 0} onClick={() => SyncProviders(rows.filter(row => row.selected == true))}>{__('Synchronize')}</button>
             </div>
           </form>
         </div>
