@@ -3,6 +3,10 @@ RSpec.describe Cfme::CloudServices::InventorySync do
   let(:ems_vmware) { FactoryBot.create(:ems_vmware, :zone => zone) }
   let(:ems_rhv)    { FactoryBot.create(:ems_redhat, :zone => zone) }
 
+  before do
+    allow(Cfme::CloudServices::ManifestFetcher).to receive(:raw_manifest).and_return({"cfme_version" => "5.11.0.0"}.to_json)
+  end
+
   context ".sync" do
     let(:targets) { [[ems_vmware.class.name, ems_vmware.id], "core", [ems_rhv.class.name, ems_rhv.id]] }
 

@@ -1,5 +1,7 @@
 class Cfme::CloudServices::ManifestFetcher
-  def self.fetch
+  def self.fetch(force: false)
+    raw_manifest_clear_cache if force
+
     manifest = JSON.parse(raw_manifest)
     block_given? ? yield(manifest) : manifest
   end
@@ -10,24 +12,27 @@ class Cfme::CloudServices::ManifestFetcher
      :verify_ssl      => OpenSSL::SSL::VERIFY_PEER}
   end
 
-  private_class_method def self.raw_manifest
-    # TODO: Modeling
-    #   - Should we allow collection of non-model information, such as replication,
-    #     pg_* tables or filesystem level things?
+  cache_with_timeout(:raw_manifest) do
+    begin
+      # TODO: Modeling
+      #   - Should we allow collection of non-model information, such as replication,
+      #     pg_* tables or filesystem level things?
 
-    manifest_config = ::Settings.cfme_cloud_services.manifest_configuration
+      manifest_config = ::Settings.cfme_cloud_services.manifest_configuration
 
-    uri = URI::Generic.build(
-      :scheme => manifest_config.scheme,
-      :host   => manifest_config.host,
-      :port   => manifest_config.port,
-      :path   => File.join(manifest_config.path, Vmdb::Appliance.VERSION)
-    )
+      uri = URI::Generic.build(
+        :scheme => manifest_config.scheme,
+        :host   => manifest_config.host,
+        :port   => manifest_config.port,
+        :path   => File.join(manifest_config.path, Vmdb::Appliance.VERSION)
+      )
 
-    response = RestClient::Resource.new(uri.to_s, certificate_config)
-    response.get
-  rescue StandardError => e
-    _log.error("Error with obtaining manifest with schema: #{e.message}")
-    JSON.generate({})
+      response = RestClient::Resource.new(uri.to_s, certificate_config)
+      response.get
+    rescue StandardError => e
+      _log.error("Error with obtaining manifest with schema: #{e.message}")
+      JSON.generate({})
+    end
   end
+  private_class_method :raw_manifest
 end
