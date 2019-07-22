@@ -13,24 +13,26 @@ class Cfme::CloudServices::ManifestFetcher
   end
 
   cache_with_timeout(:raw_manifest) do
-    # TODO: Modeling
-    #   - Should we allow collection of non-model information, such as replication,
-    #     pg_* tables or filesystem level things?
+    begin
+      # TODO: Modeling
+      #   - Should we allow collection of non-model information, such as replication,
+      #     pg_* tables or filesystem level things?
 
-    manifest_config = ::Settings.cfme_cloud_services.manifest_configuration
+      manifest_config = ::Settings.cfme_cloud_services.manifest_configuration
 
-    uri = URI::Generic.build(
-      :scheme => manifest_config.scheme,
-      :host   => manifest_config.host,
-      :port   => manifest_config.port,
-      :path   => File.join(manifest_config.path, Vmdb::Appliance.VERSION)
-    )
+      uri = URI::Generic.build(
+        :scheme => manifest_config.scheme,
+        :host   => manifest_config.host,
+        :port   => manifest_config.port,
+        :path   => File.join(manifest_config.path, Vmdb::Appliance.VERSION)
+      )
 
-    response = RestClient::Resource.new(uri.to_s, certificate_config)
-    response.get
-  rescue StandardError => e
-    _log.error("Error with obtaining manifest with schema: #{e.message}")
-    JSON.generate({})
+      response = RestClient::Resource.new(uri.to_s, certificate_config)
+      response.get
+    rescue StandardError => e
+      _log.error("Error with obtaining manifest with schema: #{e.message}")
+      JSON.generate({})
+    end
   end
   private_class_method :raw_manifest
 end
