@@ -1,4 +1,15 @@
 :collections:
+  :red_hat_cloud_services:
+    :description: Red Hat Cloud Services
+    :identifier: red_hat_cloud_services
+    :options:
+    - :collection
+    :verbs:
+    - :post
+    :collection_actions:
+      :post:
+      - :name: sync_platform
+        :identifier: red_hat_cloud_services
   :red_hat_cloud_service_providers:
     :description: Red Hat Cloud Service Providers
     :identifier: red_hat_cloud_services
@@ -14,6 +25,8 @@
         :identifier: red_hat_cloud_services
       :post:
       - :name: sync
+        :identifier: red_hat_cloud_services
+      - :name: sync_all
         :identifier: red_hat_cloud_services
     :resource_actions:
       :get:
