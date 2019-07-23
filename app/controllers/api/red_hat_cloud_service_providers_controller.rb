@@ -24,15 +24,15 @@ module Api
     end
 
     def sync_collection(type, data)
-      provider_ids = data.fetch("provider_ids")
-      provider_ids = providers_ids.uniq.sort if provider_ids
-      raise BadRequest, "Must specify a list of provider ids via \"provider_ids\"" if provider_ids.empty?
+      provider_ids = data["provider_ids"]
+      provider_ids = provider_ids.uniq if provider_ids
+      raise "Must specify a list of provider ids via \"provider_ids\"" if provider_ids.blank?
 
-      invalid_provider_ids = find_provider_ids(type) - provider_ids
-      raise BadRequest, "Invalid Provider ids #{invalid_provider_ids.join(', ')} specified" if invalid_provider_ids.present?
+      invalid_provider_ids = provider_ids - find_provider_ids(type)
+      raise "Invalid Provider ids #{invalid_provider_ids.sort.join(', ')} specified" if invalid_provider_ids.present?
 
       desc = "Syncing Providers ids: #{provider_ids.join(', ')}"
-      task_id = Cfme::CloudServices::InventorySync.sync_queue(User.current_user.userid, providers)
+      task_id = Cfme::CloudServices::InventorySync.sync_queue(User.current_user.userid, provider_ids)
       action_result(true, desc, :task_id => task_id)
     rescue => e
       action_result(false, e.to_s)
@@ -40,7 +40,7 @@ module Api
 
     def sync_all_collection(type, _data)
       provider_ids = find_provider_ids(type)
-      raise NotFoundError, "There are no Providers to Sync" unless provider_ids.present?
+      raise "There are no Providers to Sync" if provider_ids.blank?
 
       desc = "Syncing All Providers"
       task_id = Cfme::CloudServices::InventorySync.sync_queue(User.current_user.userid, provider_ids)
@@ -56,7 +56,7 @@ module Api
     end
 
     def find_provider_ids(type)
-      providers = collection_search(false, type, collection_class(type))
+      providers, _ = collection_search(false, type, collection_class(type))
       providers ? providers.ids.sort : []
     end
 
