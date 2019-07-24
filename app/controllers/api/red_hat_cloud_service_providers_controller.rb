@@ -31,7 +31,7 @@ module Api
 
     def provider_types
       manifest = Cfme::CloudServices::ManifestFetcher.fetch["manifest"] || {}
-      manifest.keys.reject { |k| k == "core" }.uniq
+      manifest.keys.reject { |k| ["core", "version"].include?(k) }.uniq
     end
   end
 end
