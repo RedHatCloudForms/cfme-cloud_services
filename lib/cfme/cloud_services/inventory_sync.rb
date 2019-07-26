@@ -31,9 +31,7 @@ module Cfme
 
       def self.collect(opts)
         path = DataPackager.package(DataCollector.collect(opts[:manifest], targets_from_queue(opts[:targets])))
-
-        MiqTask.find(opts[:task_id]).update_attributes!(:context_data => {:path => path.to_s}) if opts[:task_id]
-
+        update_task(opts[:task_id], path.to_s) if opts[:task_id]
         path
       end
 
@@ -77,6 +75,13 @@ module Cfme
         targets.map do |klass_or_instance, id|
           id.nil? ? klass_or_instance : klass_or_instance.to_s.constantize.find(id)
         end
+      end
+
+      private_class_method def self.update_task(task_id, path)
+        task = MiqTask.find(task_id)
+        task.context_data ||= {}
+        task.context_data.merge!({:payload_path => path})
+        task.save!
       end
     end
   end
