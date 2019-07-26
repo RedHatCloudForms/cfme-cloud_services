@@ -42,9 +42,9 @@ module Cfme
         }
 
         queue_opts = {
-          :class_name  => self.name,
+          :class_name  => name,
           :method_name => "collect",
-          :args        => [{manifest: manifest, targets: targets_for_queue(targets)}]
+          :args        => [{:manifest => manifest, :targets => targets_for_queue(targets)}]
         }
 
         MiqTask.generic_action_with_callback(task_opts, queue_opts)
