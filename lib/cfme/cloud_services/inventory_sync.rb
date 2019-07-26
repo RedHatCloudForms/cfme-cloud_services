@@ -80,7 +80,7 @@ module Cfme
       private_class_method def self.update_task(task_id, path)
         task = MiqTask.find(task_id)
         task.context_data ||= {}
-        task.context_data.merge!({:payload_path => path})
+        task.context_data[:payload_path] = path
         task.save!
       end
     end
