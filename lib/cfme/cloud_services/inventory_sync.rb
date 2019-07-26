@@ -29,6 +29,29 @@ module Cfme
         MiqTask.generic_action_with_callback(task_opts, queue_opts)
       end
 
+      def self.collect(opts)
+        path = DataPackager.package(DataCollector.collect(opts[:manifest], targets_from_queue(opts[:targets])))
+
+        MiqTask.find(opts[:task_id]).update_attributes!(:context_data => {:path => path.to_s}) if opts[:task_id]
+
+        path
+      end
+
+      def self.collect_queue(userid, manifest, targets)
+        task_opts = {
+          :action => "Collect and package inventory",
+          :userid => userid
+        }
+
+        queue_opts = {
+          :class_name  => self.name,
+          :method_name => "collect",
+          :args        => [{manifest: manifest, targets: targets_for_queue(targets)}]
+        }
+
+        MiqTask.generic_action_with_callback(task_opts, queue_opts)
+      end
+
       private_class_method def self.targets_for_queue(targets)
         # Handle someone passing in a single instance, an array of instances,
         # an array of [class_name, id] pairs, or a mixture of instances and
