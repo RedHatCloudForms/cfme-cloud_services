@@ -29,9 +29,9 @@ module Cfme
         MiqTask.generic_action_with_callback(task_opts, queue_opts)
       end
 
-      def self.collect(opts)
-        path = DataPackager.package(DataCollector.collect(opts[:manifest], targets_from_queue(opts[:targets])))
-        update_task(opts[:task_id], path.to_s) if opts[:task_id]
+      def self.collect(manifest:, targets:, task_id: nil, miq_task_id: nil)
+        path = DataPackager.package(DataCollector.collect(manifest, targets_from_queue(targets)))
+        update_task(task_id, path.to_s) if task_id
         path
       end
 
