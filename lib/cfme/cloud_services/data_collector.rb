@@ -19,9 +19,10 @@ class Cfme::CloudServices::DataCollector
 
   def payload_hash
     {
-      "cfme_version" => cfme_version,
-      "schema"       => {"name" => "Cfme"},
-      "manifest"     => manifest,
+      "cfme_version"      => cfme_version,
+      "data_collected_on" => Time.now.utc,
+      "schema"            => {"name" => "Cfme"},
+      "manifest"          => manifest,
     }
   end
 
