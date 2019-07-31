@@ -67,21 +67,23 @@ const RedHatCloudServicesList = () => {
     }
 
     function SyncProviders(selected_providers) {
-      let providers = [];
+      let provider_ids = [];
       selected_providers.forEach( (provider) => {
-        providers.push( { id: provider.id } )
+        provider_ids.push( provider.id )
       });
       API.post('/api/red_hat_cloud_service_providers', {
         action: 'sync',
-        resources: providers,
+        provider_ids: provider_ids,
       }).then(() => dispatch({type: 'setToastVisibility', showToast: true}))
     }
 
     function SyncPlatform() {
-      API.get('/api/red_hat_cloud_service_providers?expand=resources&attributes=id&sort_by=id').then(data => {
-        if (data.resources.length > 0) {
-          SyncProviders(data.resources)
-        }
+      API.post('/api/red_hat_cloud_service_providers', {
+        action: 'sync_all'
+      }).then(() => {
+        API.post('/api/red_hat_cloud_services', {
+          action: 'sync_platform'
+        }).then(() => dispatch({type: 'setToastVisibility', showToast: true}))
       })
     }
 

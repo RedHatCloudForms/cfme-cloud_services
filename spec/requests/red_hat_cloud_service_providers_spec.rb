@@ -101,5 +101,99 @@ describe "Red Hat Cloud Service Providers API" do
       )
       expect(response).to have_http_status(:ok)
     end
+
+    it "/api/red_hat_cloud_service_providers sync action fails without provider_ids" do
+      api_basic_authorize "red_hat_cloud_services"
+
+      post(api_red_hat_cloud_service_providers_url,
+           :params => {
+             "action" => "sync"
+           })
+
+      expect(response.parsed_body).to include(
+        "success" => false,
+        "message" => "Must specify a list of provider ids via \"provider_ids\""
+      )
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "/api/red_hat_cloud_service_providers sync action fails with invalid provider_ids" do
+      api_basic_authorize "red_hat_cloud_services"
+
+      ems1 = FactoryBot.create(:ems_vmware, :name => "sample vmware1")
+      ems2 = FactoryBot.create(:ems_vmware, :name => "sample vmware2")
+
+      post(api_red_hat_cloud_service_providers_url,
+           :params => {
+             "action"       => "sync",
+             "provider_ids" => [9999, ems1.id, ems2.id, 8888]
+           })
+
+      expect(response.parsed_body).to include(
+        "success" => false,
+        "message" => "Invalid Provider ids 8888, 9999 specified"
+      )
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "/api/red_hat_cloud_service_providers sync action succeeds with valid provider ids specified" do
+      api_basic_authorize "red_hat_cloud_services"
+
+      ems1 = FactoryBot.create(:ems_vmware, :name => "sample vmware1")
+      ems2 = FactoryBot.create(:ems_vmware, :name => "sample vmware2")
+
+      allow(Cfme::CloudServices::InventorySync).to receive("sync_queue").with(@user.userid, [ems1.id, ems2.id]) { 104 }
+
+      post(api_red_hat_cloud_service_providers_url,
+           :params => {
+             "action"       => "sync",
+             "provider_ids" => [ems1.id, ems2.id]
+           })
+
+      expect(response.parsed_body).to include(
+        "success" => true,
+        "message" => "Syncing Providers ids: #{ems1.id}, #{ems2.id}",
+        "task_id" => "104"
+      )
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "/api/red_hat_cloud_service_providers sync_all action fails if there are no providers to sync" do
+      api_basic_authorize "red_hat_cloud_services"
+
+      post(api_red_hat_cloud_service_providers_url,
+           :params => {
+             "action" => "sync_all"
+           })
+
+      expect(response.parsed_body).to include(
+        "success" => false,
+        "message" => "There are no Providers to Sync"
+      )
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "/api/red_hat_cloud_service_providers sync_all action succeeds with providers available" do
+      api_basic_authorize "red_hat_cloud_services"
+
+      ems1 = FactoryBot.create(:ems_vmware, :name => "sample vmware1")
+      ems2 = FactoryBot.create(:ems_vmware, :name => "sample vmware2")
+
+      ems_ids = [ems1.id, ems2.id].sort
+
+      allow(Cfme::CloudServices::InventorySync).to receive("sync_queue").with(@user.userid, ems_ids) { 105 }
+
+      post(api_red_hat_cloud_service_providers_url,
+           :params => {
+             "action" => "sync_all"
+           })
+
+      expect(response.parsed_body).to include(
+        "success" => true,
+        "message" => "Syncing All Providers",
+        "task_id" => "105"
+      )
+      expect(response).to have_http_status(:ok)
+    end
   end
 end
