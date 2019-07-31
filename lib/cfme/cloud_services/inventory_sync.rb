@@ -29,13 +29,13 @@ module Cfme
         MiqTask.generic_action_with_callback(task_opts, queue_opts)
       end
 
-      def self.collect(manifest:, targets:, task_id: nil, miq_task_id: nil)
-        path = DataPackager.package(DataCollector.collect(manifest, targets_from_queue(targets)))
+      def self.collect(manifest:, targets:, tempdir: nil, task_id: nil, miq_task_id: nil)
+        path = DataPackager.package(DataCollector.collect(manifest, targets_from_queue(targets)), tempdir)
         update_task(task_id, path.to_s) if task_id
         path
       end
 
-      def self.collect_queue(userid, manifest, targets)
+      def self.collect_queue(userid, manifest, targets, tempdir = nil)
         task_opts = {
           :action => "Collect and package inventory",
           :userid => userid
@@ -44,7 +44,7 @@ module Cfme
         queue_opts = {
           :class_name  => name,
           :method_name => "collect",
-          :args        => [{:manifest => manifest, :targets => targets_for_queue(targets)}]
+          :args        => [{:manifest => manifest, :targets => targets_for_queue(targets), :tempdir => tempdir}]
         }
 
         MiqTask.generic_action_with_callback(task_opts, queue_opts)
