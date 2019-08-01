@@ -3,7 +3,7 @@ class RedHatCloudServicesController < ApplicationController
   after_action :cleanup_action
 
   def show_list
-    @layout = 'red_hat_cloud_services'
+    @layout = 'red_hat_cloud_services_providers'
     @page_title = _('Red Hat Cloud Services')
     render :show_list
   end
