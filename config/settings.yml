@@ -1,6 +1,7 @@
 ---
 :cfme_cloud_services:
   :manifest_configuration:
+    :verify_ssl: true
     :scheme: https
     :host: cert.cloud.redhat.com
     :port:

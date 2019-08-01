@@ -42,8 +42,7 @@ RSpec.describe Cfme::CloudServices::ManifestFetcher do
 
     let(:certificate) do
       {:ssl_client_cert => cert.to_pem,
-       :ssl_client_key  => key,
-       :verify_ssl      => OpenSSL::SSL::VERIFY_PEER}
+       :ssl_client_key  => key}
     end
 
     it "fetches manifest" do
@@ -55,11 +54,11 @@ RSpec.describe Cfme::CloudServices::ManifestFetcher do
         :path   => File.join(uri_config.path, Vmdb::Appliance.VERSION)
       )
 
-      allow(described_class).to receive(:certificate_config).and_return(certificate)
+      allow(described_class).to receive(:certificate_options).and_return(certificate)
 
       require 'rest-client'
 
-      expect(RestClient::Resource).to receive(:new).with(uri.to_s, certificate).and_return(RestClient::Resource.new(nil))
+      expect(RestClient::Resource).to receive(:new).with(uri.to_s, a_hash_including(certificate)).and_return(RestClient::Resource.new(nil))
       allow_any_instance_of(RestClient::Resource).to receive(:get).and_return(manifest_response)
 
       expect(described_class.send(:fetch)).to eq(expected_json_manifest)
