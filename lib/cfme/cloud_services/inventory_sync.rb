@@ -29,6 +29,27 @@ module Cfme
         MiqTask.generic_action_with_callback(task_opts, queue_opts)
       end
 
+      def self.bundle(manifest:, targets:, tempdir: nil, task_id: nil, miq_task_id: nil)
+        path = DataPackager.package(DataCollector.collect(manifest, targets_from_queue(targets)), tempdir)
+        update_task(task_id, path.to_s) if task_id
+        path
+      end
+
+      def self.bundle_queue(userid, manifest, targets, tempdir = nil)
+        task_opts = {
+          :action => "Collect and package inventory",
+          :userid => userid
+        }
+
+        queue_opts = {
+          :class_name  => name,
+          :method_name => "bundle",
+          :args        => [{:manifest => manifest, :targets => targets_for_queue(targets), :tempdir => tempdir}]
+        }
+
+        MiqTask.generic_action_with_callback(task_opts, queue_opts)
+      end
+
       private_class_method def self.targets_for_queue(targets)
         # Handle someone passing in a single instance, an array of instances,
         # an array of [class_name, id] pairs, or a mixture of instances and
@@ -54,6 +75,13 @@ module Cfme
         targets.map do |klass_or_instance, id|
           id.nil? ? klass_or_instance : klass_or_instance.to_s.constantize.find(id)
         end
+      end
+
+      private_class_method def self.update_task(task_id, path)
+        task = MiqTask.find(task_id)
+        task.context_data ||= {}
+        task.context_data[:payload_path] = path
+        task.save!
       end
     end
   end

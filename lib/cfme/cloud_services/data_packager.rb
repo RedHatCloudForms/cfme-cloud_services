@@ -2,8 +2,8 @@ require "json"
 require "tempfile"
 
 class Cfme::CloudServices::DataPackager
-  def self.package(payload)
-    file = Tempfile.new(["cfme_inventory", ".tar.gz"])
+  def self.package(payload, tempdir = nil)
+    file = Tempfile.new(["cfme_inventory-", ".tar.gz"], tempdir)
     file.binmode
 
     targz(payload.map(&:to_json), file)
