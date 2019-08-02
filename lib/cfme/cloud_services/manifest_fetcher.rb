@@ -34,7 +34,7 @@ class Cfme::CloudServices::ManifestFetcher
       response.get
     rescue StandardError => e
       _log.error("Error with obtaining manifest with schema: #{e.message}")
-      JSON.generate({})
+      raise
     end
   end
   private_class_method :raw_manifest
