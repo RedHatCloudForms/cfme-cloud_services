@@ -63,5 +63,21 @@ RSpec.describe Cfme::CloudServices::ManifestFetcher do
 
       expect(described_class.send(:fetch)).to eq(expected_json_manifest)
     end
+
+    let(:fake_configuration) do
+      {
+        :scheme => "https",
+        :host   => "fakeXXXX.XXXX",
+        :path   => "/api"
+      }
+    end
+
+    it 'raises error when there is issue on endpoint' do
+      require 'rest-client'
+      allow(::Settings.cfme_cloud_services).to receive(:manifest_configuration).and_return(OpenStruct.new(fake_configuration))
+      allow(described_class).to receive(:certificate_options).and_return(certificate)
+
+      expect { described_class.send(:raw_manifest) }.to raise_error StandardError
+    end
   end
 end
