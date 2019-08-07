@@ -5,13 +5,13 @@ const RedHatCloudServicesRedirect = () => {
   return (
     <div>
       <h1>
-        Services
+        {__('Services')}
       </h1>
       <p>
-        Explore our Software-as-a-Services offerings at <a href='https://cloud.redhat.com/'>cloud.redhat.com</a>.
+        {__('Explore our Software-as-a-Services offerings at ')} <a href='https://cloud.redhat.com/'>cloud.redhat.com</a>.
       </p>
       <Button href='https://cloud.redhat.com/'>
-        Take me there
+        {__('Take me there')}
       </Button>
     </div>
   )
