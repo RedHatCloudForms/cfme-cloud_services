@@ -9,13 +9,13 @@ const filterFields = [
   {
     id: 'name',
     title: __('Name'),
-    placeholder: 'Filter by Name',
+    placeholder: __('Filter by Name'),
     filterType: 'text'
   },
   {
     id: 'type',
     title: __('Type'),
-    placeholder: 'Filter by Provider Type',
+    placeholder: __('Filter by Provider Type'),
     filterType: 'text'
   }
 ];
@@ -118,22 +118,22 @@ const RedHatCloudServicesList = () => {
     return (
       <div>
         <h1>
-          Global Synchronization
+          {__('Global Synchronization')}
         </h1>
         <div>
           <p>
-            Synchronize your CloudForms data to Red Hat Cloud Services.
+            {__('Synchronize your CloudForms data to Red Hat Cloud Services.')}
           </p>
           <div class="form-group">
             <button class="btn btn-default" type="button" id="upload-selected" onClick={() => SyncPlatform()}>{__('Synchronize this Platform to Cloud')}</button>
           </div>
         </div>
         <h1>
-          Provider Synchronization
+          {__('Provider Synchronization')}
         </h1>
         {showToast(state.showToast)}
         <p>
-          Synchronize your CloudForms data for selected providers.
+          {__('Synchronize your CloudForms data for selected providers.')}
         </p>
         <div className="row toolbar-pf table-view-pf-toolbar">
           <form className="toolbar-pf-actions">
