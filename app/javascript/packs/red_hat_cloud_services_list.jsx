@@ -116,12 +116,12 @@ const RedHatCloudServicesList = () => {
     const filteredRows = rows.filter(row => row[currentFilterType.id].toLowerCase().includes(currentValue.toLowerCase()));
     const pagedRows = paginate(pagination, filteredRows);
     return (
-      <div>
+      <div id='red_hat_cloud_providers'>
         <h1>
           {__('Global Synchronization')}
         </h1>
-        <div>
-          <p>
+        <div id='red_hat_cloud_providers_global'>
+          <p id='red_hat_cloud_providers_global_info'>
             {__('Synchronize your CloudForms data to Red Hat Cloud Services.')}
           </p>
           <div class="form-group">
@@ -132,14 +132,15 @@ const RedHatCloudServicesList = () => {
           {__('Provider Synchronization')}
         </h1>
         {showToast(state.showToast)}
-        <p>
+        <p id='red_hat_cloud_services_table_info'>
           {__('Synchronize your CloudForms data for selected providers.')}
         </p>
-        <div className="row toolbar-pf table-view-pf-toolbar">
+        <div id='red_hat_cloud_providers_toolbar' className="row toolbar-pf table-view-pf-toolbar">
           <form className="toolbar-pf-actions">
             <div className="form-group toolbar-pf-filter">
-              <Filter>
+              <Filter id='filter'>
                 <Filter.TypeSelector
+                  id='filter_type'
                   filterTypes={filterFields}
                   currentFilterType={currentFilterType}
                   onFilterTypeSelected={(filterType) => {
@@ -149,6 +150,7 @@ const RedHatCloudServicesList = () => {
                   }}
                 />
                 <FormControl
+                  id='filter_input'
                   type={currentFilterType.filterType}
                   value={currentValue}
                   placeholder={currentFilterType.placeholder}

@@ -18,6 +18,7 @@ const RedHatCloudServicesTable = (props) => {
   return (
     <SortingContext.Provider value={{sortOrderAsc: state.sortOrderAsc, sortableColumnProperty: state.sortableColumnProperty}}>
       <PfProvider
+         id='red_hat_cloud_providers_table'
          striped
          bordered
          columns={state.columns}
