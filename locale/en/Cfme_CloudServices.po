@@ -1,0 +1,77 @@
+# English translations for Cfme_CloudServices package.
+# Copyright (C) 2019 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Cfme_CloudServices package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Cfme_CloudServices 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2019-08-07 12:09+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"\n"
+
+msgid "Action"
+msgstr ""
+
+#. TRANSLATORS: file: db/fixtures/miq_product_features.yml
+msgid "Everything under Red Hat Cloud Services"
+msgstr ""
+
+msgid "Explore our Software-as-a-Services offerings at "
+msgstr ""
+
+msgid "Filter by Name"
+msgstr ""
+
+msgid "Filter by Provider Type"
+msgstr ""
+
+msgid "Global Synchronization"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Provider Synchronization"
+msgstr ""
+
+msgid "Providers"
+msgstr ""
+
+msgid "Red Hat Cloud"
+msgstr ""
+
+#. TRANSLATORS: file: db/fixtures/miq_product_features.yml
+msgid "Red Hat Cloud Services"
+msgstr ""
+
+msgid "Services"
+msgstr ""
+
+msgid "Synchronization task has been initiated."
+msgstr ""
+
+msgid "Synchronize"
+msgstr ""
+
+msgid "Synchronize this Platform to Cloud"
+msgstr ""
+
+msgid "Synchronize your CloudForms data for selected providers."
+msgstr ""
+
+msgid "Synchronize your CloudForms data to Red Hat Cloud Services."
+msgstr ""
+
+msgid "Take me there"
+msgstr ""
+
+msgid "Type"
+msgstr ""
