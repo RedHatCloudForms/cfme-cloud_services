@@ -2,7 +2,7 @@ class Cfme::CloudServices::ManifestFetcher
   def self.fetch(force: false)
     raw_manifest_clear_cache if force
 
-    manifest = JSON.parse(raw_manifest)
+    manifest = Vmdb::Settings.filter_passwords!(JSON.parse(raw_manifest))
     block_given? ? yield(manifest) : manifest
   end
 
