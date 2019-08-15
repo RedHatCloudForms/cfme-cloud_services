@@ -25,7 +25,7 @@ class Cfme::CloudServices::DataPackager
     Zlib::GzipWriter.wrap(io) do |gz|
       Gem::Package::TarWriter.new(gz) do |tar|
         files.each_with_index do |file, i|
-          tar.add_file_simple("cfme_inventory_#{i}.json", 0o0444, file.length) do |tar_file|
+          tar.add_file_simple("cfme_inventory_#{i}.json", 0o0444, file.bytesize) do |tar_file|
             tar_file.write(file)
           end
         end
