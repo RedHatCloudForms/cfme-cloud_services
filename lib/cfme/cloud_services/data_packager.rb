@@ -2,15 +2,17 @@ require "json"
 require "tempfile"
 
 class Cfme::CloudServices::DataPackager
-  def self.package(payload, tempdir = nil)
-    file = Tempfile.new(["cfme_inventory-", ".tar.gz"], tempdir)
+  def self.package(payload, tempdir = nil, perm = nil)
+    file = Tempfile.create(["cfme_inventory-", ".tar.gz"], tempdir)
     file.binmode
 
     targz(payload.map(&:to_json), file)
 
-    file.close(false)
+    file.close
 
     path = Pathname.new(file.path)
+    FileUtils.chmod(perm, [path]) if perm
+
     return path unless block_given?
 
     begin
