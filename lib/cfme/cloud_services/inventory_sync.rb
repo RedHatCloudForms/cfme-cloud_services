@@ -83,6 +83,7 @@ module Cfme
         task = MiqTask.find(task_id)
         task.context_data ||= {}
         task.context_data[:payload_path] = path
+        task.context_data[:ip_address] = MiqServer.my_server.ipaddress
         task.save!
       end
     end
