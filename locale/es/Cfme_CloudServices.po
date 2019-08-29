@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Cfme_CloudServices package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# trh01 oceantranslations <tr.rh01@oceantranslations.com>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Cfme_CloudServices 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-07 12:50+0200\n"
+"PO-Revision-Date: 2019-08-07 11:17+0000\n"
+"Last-Translator: trh01 oceantranslations <tr.rh01@oceantranslations.com>, 2019\n"
+"Language-Team: Spanish (https://www.transifex.com/manageiq/teams/35937/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:33
+msgid "Action"
+msgstr "Acción"
+
+#. TRANSLATORS: file: db/fixtures/miq_product_features.yml
+#: ../config/yaml_strings.rb:6
+msgid "Everything under Red Hat Cloud Services"
+msgstr "Todo en Red Hat Cloud Services"
+
+#: ../app/javascript/packs/red_hat_cloud_services_redirect.jsx:11
+msgid "Explore our Software-as-a-Services offerings at "
+msgstr "Explore nuestras ofertas de Software como servicio en "
+
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:12
+msgid "Filter by Name"
+msgstr "Filtrar por nombre"
+
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:18
+msgid "Filter by Provider Type"
+msgstr "Filtrar por tipo de proveedor"
+
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:121
+msgid "Global Synchronization"
+msgstr "Sincronización global"
+
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:11
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:25
+msgid "Name"
+msgstr "Nombre"
+
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:132
+msgid "Provider Synchronization"
+msgstr "Sincronización de proveedores"
+
+#: ../lib/cfme/cloud_services/engine.rb:20
+msgid "Providers"
+msgstr "Proveedores"
+
+#: ../lib/cfme/cloud_services/engine.rb:18
+msgid "Red Hat Cloud"
+msgstr "Red Hat Cloud"
+
+#. TRANSLATORS: file: db/fixtures/miq_product_features.yml
+#: ../app/controllers/red_hat_cloud_services_controller.rb:7
+#: ../app/controllers/red_hat_cloud_services_controller.rb:13
+#: ../lib/cfme/cloud_services/engine.rb:13 ../config/yaml_strings.rb:4
+msgid "Red Hat Cloud Services"
+msgstr "Red Hat Cloud Services"
+
+#: ../app/javascript/packs/red_hat_cloud_services_redirect.jsx:8
+#: ../lib/cfme/cloud_services/engine.rb:19
+msgid "Services"
+msgstr "Servicios"
+
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:59
+msgid "Synchronization task has been initiated."
+msgstr "Se ha iniciado la tarea de sincronización."
+
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:162
+msgid "Synchronize"
+msgstr "Sincronizar"
+
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:128
+msgid "Synchronize this Platform to Cloud"
+msgstr "Sincronizar esta plataforma en la nube"
+
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:136
+msgid "Synchronize your CloudForms data for selected providers."
+msgstr ""
+"Sincronice sus datos de CloudForms para los proveedores seleccionados."
+
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:125
+msgid "Synchronize your CloudForms data to Red Hat Cloud Services."
+msgstr "Sincronice sus datos de CloudForms en Red Hat Cloud Services."
+
+#: ../app/javascript/packs/red_hat_cloud_services_redirect.jsx:14
+msgid "Take me there"
+msgstr "Llevarme allá"
+
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:17
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:29
+msgid "Type"
+msgstr "Tipo"
