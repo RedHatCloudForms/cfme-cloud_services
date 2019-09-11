@@ -10,8 +10,8 @@ const cellFormat = (value, { rowData: { selected } }) => (
     </Table.Cell>
   );
 
-const actionFormat = (value, { rowData: { selected } }) => (
-    <Table.Actions className={`clickable ${selected ? 'selected' : ''}`}>
+const actionFormat = (value, { rowData: { selected, id } }) => (
+    <Table.Actions id={`synchronize_${id}`} className={`clickable ${selected ? 'selected' : ''}`}>
       {value}
     </Table.Actions>
   );
@@ -63,6 +63,7 @@ export const createColumns = (showIcon, showSelect, columns, dispatch) => {
                   className={`clickable ${rowData.selected ? 'selected' : ''}`}
                 >
                   <TableCheckbox
+                    id={`checkbox_${rowData.id}`}
                     className="cell-middle"
                     checked={!!rowData.selected}
                     onClick={event => event.stopPropagation()}
