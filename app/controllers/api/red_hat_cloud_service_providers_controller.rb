@@ -24,8 +24,8 @@ module Api
     end
 
     def sync_collection(type, data)
-      provider_ids = data["provider_ids"].map(&:to_i)
-      provider_ids = provider_ids.uniq if provider_ids
+      provider_ids = data["provider_ids"]
+      provider_ids = provider_ids.map(&:to_i).uniq if provider_ids
       raise "Must specify a list of provider ids via \"provider_ids\"" if provider_ids.blank?
 
       invalid_provider_ids = provider_ids - find_provider_ids(type)
