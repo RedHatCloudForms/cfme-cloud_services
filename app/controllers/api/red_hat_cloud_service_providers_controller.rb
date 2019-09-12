@@ -25,14 +25,15 @@ module Api
 
     def sync_collection(type, data)
       provider_ids = data["provider_ids"]
-      provider_ids = provider_ids.uniq if provider_ids
+      provider_ids = provider_ids.map(&:to_i).uniq if provider_ids
       raise "Must specify a list of provider ids via \"provider_ids\"" if provider_ids.blank?
 
       invalid_provider_ids = provider_ids - find_provider_ids(type)
       raise "Invalid Provider ids #{invalid_provider_ids.sort.join(', ')} specified" if invalid_provider_ids.present?
 
       desc = "Syncing Providers ids: #{provider_ids.join(', ')}"
-      task_id = Cfme::CloudServices::InventorySync.sync_queue(User.current_user.userid, provider_ids)
+      targets = provider_ids_to_targets(provider_ids)
+      task_id = Cfme::CloudServices::InventorySync.sync_queue(User.current_user.userid, targets)
       action_result(true, desc, :task_id => task_id)
     rescue => e
       action_result(false, e.to_s)
@@ -43,7 +44,8 @@ module Api
       raise "There are no Providers to Sync" if provider_ids.blank?
 
       desc = "Syncing All Providers"
-      task_id = Cfme::CloudServices::InventorySync.sync_queue(User.current_user.userid, provider_ids)
+      targets = provider_ids_to_targets(provider_ids)
+      task_id = Cfme::CloudServices::InventorySync.sync_queue(User.current_user.userid, targets)
       action_result(true, desc, :task_id => task_id)
     rescue => e
       action_result(false, e.to_s)
@@ -63,6 +65,10 @@ module Api
     def provider_types
       manifest = Cfme::CloudServices::ManifestFetcher.fetch["manifest"] || {}
       manifest.keys.reject { |k| ["core", "version"].include?(k) }.uniq
+    end
+
+    def provider_ids_to_targets(provider_ids)
+      provider_ids.map { |id| ["ExtManagementSystem", id] }
     end
   end
 end

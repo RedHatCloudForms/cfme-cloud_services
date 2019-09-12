@@ -126,7 +126,7 @@ describe "Red Hat Cloud Service Providers API" do
       post(api_red_hat_cloud_service_providers_url,
            :params => {
              "action"       => "sync",
-             "provider_ids" => [9999, ems1.id, ems2.id, 8888]
+             "provider_ids" => ["9999", ems1.id.to_s, ems2.id.to_s, "8888"]
            })
 
       expect(response.parsed_body).to include(
@@ -142,12 +142,13 @@ describe "Red Hat Cloud Service Providers API" do
       ems1 = FactoryBot.create(:ems_vmware, :name => "sample vmware1")
       ems2 = FactoryBot.create(:ems_vmware, :name => "sample vmware2")
 
-      allow(Cfme::CloudServices::InventorySync).to receive("sync_queue").with(@user.userid, [ems1.id, ems2.id]) { 104 }
+      allow(Cfme::CloudServices::InventorySync).to receive("sync_queue")
+        .with(@user.userid, [["ExtManagementSystem", ems1.id], ["ExtManagementSystem", ems2.id]]) { 104 }
 
       post(api_red_hat_cloud_service_providers_url,
            :params => {
              "action"       => "sync",
-             "provider_ids" => [ems1.id, ems2.id]
+             "provider_ids" => [ems1.id.to_s, ems2.id.to_s]
            })
 
       expect(response.parsed_body).to include(
@@ -179,9 +180,8 @@ describe "Red Hat Cloud Service Providers API" do
       ems1 = FactoryBot.create(:ems_vmware, :name => "sample vmware1")
       ems2 = FactoryBot.create(:ems_vmware, :name => "sample vmware2")
 
-      ems_ids = [ems1.id, ems2.id].sort
-
-      allow(Cfme::CloudServices::InventorySync).to receive("sync_queue").with(@user.userid, ems_ids) { 105 }
+      allow(Cfme::CloudServices::InventorySync).to receive("sync_queue")
+        .with(@user.userid, [["ExtManagementSystem", ems1.id], ["ExtManagementSystem", ems2.id]]) { 105 }
 
       post(api_red_hat_cloud_service_providers_url,
            :params => {
