@@ -2,96 +2,104 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Cfme_CloudServices package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
+# Milan Zázrivec <mzazrivec@redhat.com>, 2019
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Cfme_CloudServices 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-13 11:34+0200\n"
-"PO-Revision-Date: 2019-09-13 11:34+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2019-09-13 09:36+0000\n"
+"Last-Translator: Milan Zázrivec <mzazrivec@redhat.com>, 2019\n"
+"Language-Team: Chinese (China) (https://www.transifex.com/redhatcloudforms/teams/102751/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:33
 msgid "Action"
-msgstr ""
+msgstr "动作"
 
 #. TRANSLATORS: file: db/fixtures/miq_product_features.yml
 #: ../config/yaml_strings.rb:6
 msgid "Everything under Red Hat Cloud Services"
-msgstr ""
+msgstr "'红帽云服务' 下的任何内容"
 
 #: ../app/javascript/packs/red_hat_cloud_services_redirect.jsx:11
 msgid "Explore our Software-as-a-Services offerings at "
-msgstr ""
+msgstr "要了解我们的软件即服务产品，请访问"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:12
 msgid "Filter by Name"
-msgstr ""
+msgstr "按名称过滤"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:18
 msgid "Filter by Provider Type"
-msgstr ""
+msgstr "按供应商类型过滤"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:121
 msgid "Global Synchronization"
-msgstr ""
+msgstr "全局同步"
 
-#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:11 ../app/javascript/packs/red_hat_cloud_services_list.jsx:25
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:11
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:25
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:132
 msgid "Provider Synchronization"
-msgstr ""
+msgstr "供应商同步"
 
 #: ../lib/cfme/cloud_services/engine.rb:20
 msgid "Providers"
-msgstr ""
+msgstr "供应商"
 
 #: ../lib/cfme/cloud_services/engine.rb:18
 msgid "Red Hat Cloud"
-msgstr ""
+msgstr "红帽云"
 
 #. TRANSLATORS: file: db/fixtures/miq_product_features.yml
-#: ../app/controllers/red_hat_cloud_services_controller.rb:7 ../app/controllers/red_hat_cloud_services_controller.rb:13 ../lib/cfme/cloud_services/engine.rb:13 ../config/yaml_strings.rb:4
+#: ../app/controllers/red_hat_cloud_services_controller.rb:7
+#: ../app/controllers/red_hat_cloud_services_controller.rb:13
+#: ../lib/cfme/cloud_services/engine.rb:13 ../config/yaml_strings.rb:4
 msgid "Red Hat Cloud Services"
-msgstr ""
+msgstr "红帽云服务"
 
-#: ../app/javascript/packs/red_hat_cloud_services_redirect.jsx:8 ../lib/cfme/cloud_services/engine.rb:19
+#: ../app/javascript/packs/red_hat_cloud_services_redirect.jsx:8
+#: ../lib/cfme/cloud_services/engine.rb:19
 msgid "Services"
-msgstr ""
+msgstr "服务"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:59
 msgid "Synchronization task has been initiated."
-msgstr ""
+msgstr "同步任务已启动。"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:164
 msgid "Synchronize"
-msgstr ""
+msgstr "同步"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:128
 msgid "Synchronize this Platform to Cloud"
-msgstr ""
+msgstr "将这个平台同步到云。"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:136
 msgid "Synchronize your CloudForms data for selected providers."
-msgstr ""
+msgstr "同步所选供应商的 CloudForms 数据。"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:125
 msgid "Synchronize your CloudForms data to Red Hat Cloud Services."
-msgstr ""
+msgstr "将您的 CloudForms 数据同步到红帽云服务。"
 
 #: ../app/javascript/packs/red_hat_cloud_services_redirect.jsx:14
 msgid "Take me there"
-msgstr ""
+msgstr "带我前往"
 
-#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:17 ../app/javascript/packs/red_hat_cloud_services_list.jsx:29
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:17
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:29
 msgid "Type"
-msgstr ""
+msgstr "类型"
