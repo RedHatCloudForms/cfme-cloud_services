@@ -2,96 +2,104 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Cfme_CloudServices package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
+# Milan Zázrivec <mzazrivec@redhat.com>, 2019
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Cfme_CloudServices 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-13 11:34+0200\n"
-"PO-Revision-Date: 2019-09-13 11:34+0200\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2019-09-13 09:36+0000\n"
+"Last-Translator: Milan Zázrivec <mzazrivec@redhat.com>, 2019\n"
+"Language-Team: Portuguese (Brazil) (https://www.transifex.com/redhatcloudforms/teams/102751/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:33
 msgid "Action"
-msgstr ""
+msgstr "Ação"
 
 #. TRANSLATORS: file: db/fixtures/miq_product_features.yml
 #: ../config/yaml_strings.rb:6
 msgid "Everything under Red Hat Cloud Services"
-msgstr ""
+msgstr "Tudo em Red Hat Cloud Services"
 
 #: ../app/javascript/packs/red_hat_cloud_services_redirect.jsx:11
 msgid "Explore our Software-as-a-Services offerings at "
-msgstr ""
+msgstr "Veja nossas ofertas de Software como Serviço em"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:12
 msgid "Filter by Name"
-msgstr ""
+msgstr "Filtrar por nome"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:18
 msgid "Filter by Provider Type"
-msgstr ""
+msgstr "Filtrar por tipo de provedor"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:121
 msgid "Global Synchronization"
-msgstr ""
+msgstr "Sincronização global"
 
-#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:11 ../app/javascript/packs/red_hat_cloud_services_list.jsx:25
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:11
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:25
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:132
 msgid "Provider Synchronization"
-msgstr ""
+msgstr "Sincronização de provedor"
 
 #: ../lib/cfme/cloud_services/engine.rb:20
 msgid "Providers"
-msgstr ""
+msgstr "Provedores"
 
 #: ../lib/cfme/cloud_services/engine.rb:18
 msgid "Red Hat Cloud"
-msgstr ""
+msgstr "Red Hat Cloud"
 
 #. TRANSLATORS: file: db/fixtures/miq_product_features.yml
-#: ../app/controllers/red_hat_cloud_services_controller.rb:7 ../app/controllers/red_hat_cloud_services_controller.rb:13 ../lib/cfme/cloud_services/engine.rb:13 ../config/yaml_strings.rb:4
+#: ../app/controllers/red_hat_cloud_services_controller.rb:7
+#: ../app/controllers/red_hat_cloud_services_controller.rb:13
+#: ../lib/cfme/cloud_services/engine.rb:13 ../config/yaml_strings.rb:4
 msgid "Red Hat Cloud Services"
-msgstr ""
+msgstr "Red Hat Cloud Services"
 
-#: ../app/javascript/packs/red_hat_cloud_services_redirect.jsx:8 ../lib/cfme/cloud_services/engine.rb:19
+#: ../app/javascript/packs/red_hat_cloud_services_redirect.jsx:8
+#: ../lib/cfme/cloud_services/engine.rb:19
 msgid "Services"
-msgstr ""
+msgstr "Serviços"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:59
 msgid "Synchronization task has been initiated."
-msgstr ""
+msgstr "A tarefa de sincronização foi iniciada."
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:164
 msgid "Synchronize"
-msgstr ""
+msgstr "Sincronizar"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:128
 msgid "Synchronize this Platform to Cloud"
-msgstr ""
+msgstr "Sincronizar esta plataforma com a nuvem"
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:136
 msgid "Synchronize your CloudForms data for selected providers."
-msgstr ""
+msgstr "Sincronize seus dados do CloudForms com provedores selecionados."
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:125
 msgid "Synchronize your CloudForms data to Red Hat Cloud Services."
-msgstr ""
+msgstr "Sincronize seus dados do CloudForms com Red Hat Cloud Services."
 
 #: ../app/javascript/packs/red_hat_cloud_services_redirect.jsx:14
 msgid "Take me there"
-msgstr ""
+msgstr "Acessar"
 
-#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:17 ../app/javascript/packs/red_hat_cloud_services_list.jsx:29
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:17
+#: ../app/javascript/packs/red_hat_cloud_services_list.jsx:29
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
