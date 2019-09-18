@@ -11,8 +11,16 @@ class Cfme::CloudServices::ManifestFetcher
   end
 
   private_class_method def self.certificate_options
-    {:ssl_client_cert => OpenSSL::X509::Certificate.new(File.read("/etc/pki/consumer/cert.pem")),
-     :ssl_client_key  => OpenSSL::PKey::RSA.new(File.read("/etc/pki/consumer/key.pem"))}
+    certificate_file = "/etc/pki/consumer/cert.pem"
+
+    subscription_manager_message = _("Check whether subscription manager is configured properly.")
+    raise _("Unable to find certificate file:") + " #{certificate_file}. #{subscription_manager_message}" unless File.file?(certificate_file)
+
+    key_file = "/etc/pki/consumer/key.pem"
+    raise _("Unable to find key file:") + " #{key_file}. #{subscription_manager_message}." unless File.file?(key_file)
+
+    {:ssl_client_cert => OpenSSL::X509::Certificate.new(File.read(certificate_file)),
+     :ssl_client_key  => OpenSSL::PKey::RSA.new(File.read(key_file))}
   end
 
   private_class_method def self.ssl_options
