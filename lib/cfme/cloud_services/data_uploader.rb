@@ -6,6 +6,8 @@ class Cfme::CloudServices::DataUploader
 
     params = {:payload= => path, :content_type= => "application/vnd.redhat.topological-inventory.something+tgz"}
     result = AwesomeSpawn.run("insights-client", :params => params)
+    result.exit_status = 1 if result.error.present?
+
     if result.failure?
       _log.error("Uploading #{path} to cloud.redhat.com...Failure - #{result.output} #{result.error}")
     else
