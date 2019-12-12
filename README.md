@@ -7,7 +7,7 @@
 [![Security](https://hakiri.io/github/RedHatCloudForms/cfme-cloud_services/master.svg)](https://hakiri.io/github/RedHatCloudForms/cfme-cloud_services/master)
 
 [![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/RedHatCloudForms/cfme-cloud_services?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Translate](https://img.shields.io/badge/translate-zanata-blue.svg)](https://translate.zanata.org/zanata/project/view/cfme-cloud_services)
+[![Translate](https://img.shields.io/badge/translate-transifex-blue.svg)](https://www.transifex.com/redhatcloudforms/red-hat-cloud-services-for-cloudforms/dashboard/)
 
 Red Hat Cloud Services plugin for CloudForms.
 
