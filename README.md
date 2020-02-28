@@ -1,10 +1,10 @@
 # Cfme::CloudServices
 
 [![Gem Version](https://badge.fury.io/rb/cfme-cloud_services.svg)](http://badge.fury.io/rb/cfme-cloud_services)
-[![Build Status](https://travis-ci.org/RedHatCloudForms/cfme-cloud_services.svg?branch=master)](https://travis-ci.org/RedHatCloudForms/cfme-cloud_services)
+[![Build Status](https://travis-ci.org/RedHatCloudForms/cfme-cloud_services.svg?branch=jansa)](https://travis-ci.org/RedHatCloudForms/cfme-cloud_services)
 [![Code Climate](https://codeclimate.com/github/RedHatCloudForms/cfme-cloud_services.svg)](https://codeclimate.com/github/RedHatCloudForms/cfme-cloud_services)
 [![Test Coverage](https://codeclimate.com/github/RedHatCloudForms/cfme-cloud_services/badges/coverage.svg)](https://codeclimate.com/github/RedHatCloudForms/cfme-cloud_services/coverage)
-[![Security](https://hakiri.io/github/RedHatCloudForms/cfme-cloud_services/master.svg)](https://hakiri.io/github/RedHatCloudForms/cfme-cloud_services/master)
+[![Security](https://hakiri.io/github/RedHatCloudForms/cfme-cloud_services/jansa.svg)](https://hakiri.io/github/RedHatCloudForms/cfme-cloud_services/jansa)
 
 [![Chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/RedHatCloudForms/cfme-cloud_services?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Translate](https://img.shields.io/badge/translate-transifex-blue.svg)](https://www.transifex.com/redhatcloudforms/red-hat-cloud-services-for-cloudforms/dashboard/)
