@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cfme_CloudServices 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 11:34+0200\n"
-"PO-Revision-Date: 2019-09-13 11:34+0200\n"
+"POT-Creation-Date: 2020-03-17 13:29+0100\n"
+"PO-Revision-Date: 2020-03-17 13:29+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -20,6 +20,10 @@ msgstr ""
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:33
 msgid "Action"
+msgstr ""
+
+#: ../lib/cfme/cloud_services/manifest_fetcher.rb:16
+msgid "Check whether subscription manager is configured properly."
 msgstr ""
 
 #. TRANSLATORS: file: db/fixtures/miq_product_features.yml
@@ -94,4 +98,12 @@ msgstr ""
 
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:17 ../app/javascript/packs/red_hat_cloud_services_list.jsx:29
 msgid "Type"
+msgstr ""
+
+#: ../lib/cfme/cloud_services/manifest_fetcher.rb:17
+msgid "Unable to find certificate file:"
+msgstr ""
+
+#: ../lib/cfme/cloud_services/manifest_fetcher.rb:20
+msgid "Unable to find key file:"
 msgstr ""
