@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[redhatcloudforms.cloud-services-master]
+[redhatcloudforms.cloud-services-jansa]
 file_filter = locale/<lang>/Cfme_CloudServices.po
 source_file = locale/Cfme_CloudServices.pot
 source_lang = en
