@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Milan Zázrivec <mzazrivec@redhat.com>, 2019
+# Milan Zázrivec <mzazrivec@redhat.com>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Cfme_CloudServices 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-13 11:34+0200\n"
-"PO-Revision-Date: 2019-09-13 09:36+0000\n"
-"Last-Translator: Milan Zázrivec <mzazrivec@redhat.com>, 2019\n"
+"POT-Creation-Date: 2020-03-17 13:29+0100\n"
+"PO-Revision-Date: 2020-03-17 12:34+0000\n"
+"Last-Translator: Milan Zázrivec <mzazrivec@redhat.com>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/redhatcloudforms/teams/102751/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,6 +24,10 @@ msgstr ""
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:33
 msgid "Action"
 msgstr "动作"
+
+#: ../lib/cfme/cloud_services/manifest_fetcher.rb:16
+msgid "Check whether subscription manager is configured properly."
+msgstr ""
 
 #. TRANSLATORS: file: db/fixtures/miq_product_features.yml
 #: ../config/yaml_strings.rb:6
@@ -103,3 +107,11 @@ msgstr "带我前往"
 #: ../app/javascript/packs/red_hat_cloud_services_list.jsx:29
 msgid "Type"
 msgstr "类型"
+
+#: ../lib/cfme/cloud_services/manifest_fetcher.rb:17
+msgid "Unable to find certificate file:"
+msgstr ""
+
+#: ../lib/cfme/cloud_services/manifest_fetcher.rb:20
+msgid "Unable to find key file:"
+msgstr ""
